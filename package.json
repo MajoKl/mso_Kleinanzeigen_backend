@@ -1,0 +1,19 @@
+{
+  "name": "mso_kleinanzeigen_backend",
+  "version": "1.0.0",
+  "description": "mso_kleinanzeigen_backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MajoKl/mso_Kleinanzeigen_backend.git"
+  },
+  "author": "Jonas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MajoKl/mso_Kleinanzeigen_backend/issues"
+  },
+  "homepage": "https://github.com/MajoKl/mso_Kleinanzeigen_backend#readme"
+}
