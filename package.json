@@ -4,6 +4,8 @@
   "description": "mso_kleinanzeigen_backend",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon  src/index.js -e js,hbs,css ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,17 @@
   "bugs": {
     "url": "https://github.com/MajoKl/mso_Kleinanzeigen_backend/issues"
   },
-  "homepage": "https://github.com/MajoKl/mso_Kleinanzeigen_backend#readme"
+  "homepage": "https://github.com/MajoKl/mso_Kleinanzeigen_backend#readme",
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "cors": "2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "4.17.1",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "6.1.1",
+    "socket.io": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15"
+  }
 }
