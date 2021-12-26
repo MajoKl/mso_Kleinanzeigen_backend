@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //routers
 
-app.use();
+app.use(express.Route(), "/api/user");
 
 app.get("/api/", (req, res) => {
   res.send({ error: "Du bist komisch" });

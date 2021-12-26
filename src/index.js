@@ -1,6 +1,11 @@
 const http = require("http");
 const { Server } = require("socketio");
 
+//db start
+require("./db/db");
+
+//else
+
 const app = require("./app");
 
 const server = http.createServer(app);
