@@ -22,7 +22,7 @@ router.get("/oauth/redirect", (req, res) => {
     console.log(response.data);
 
     res.redirect(
-      `http://localhost:3000/start?access_token=${response.data.access_token}`
+      `http://localhost:3005/start?access_token=${response.data.access_token}`
     );
   });
 });
