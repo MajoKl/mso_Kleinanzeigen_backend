@@ -8,13 +8,18 @@ const article = new Schema(
       required: true,
     },
 
+    realName: {
+      type: String,
+      required: true,
+    },
+
     ISBN: { type: String, required: false },
     discription: {
       type: "String",
     },
     validator: (val) => {
-      val = String(val)
-      val.re
+      val = String(val);
+      val.re;
       ISBN.Validate(val.strip());
     },
     categories: {},

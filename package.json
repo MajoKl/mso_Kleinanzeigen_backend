@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/MajoKl/mso_Kleinanzeigen_backend#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
     "dotenv": "^10.0.0",
+    "env-cmd": "^10.1.0",
     "express": "4.17.1",
     "install": "^0.13.0",
     "isbn-validate": "^1.0.3",
@@ -31,6 +33,6 @@
     "socket.io": "^4.4.0"
   },
   "devDependencies": {
-    "nodemon": "2.0.15"
+    "nodemon": "^2.0.15"
   }
 }

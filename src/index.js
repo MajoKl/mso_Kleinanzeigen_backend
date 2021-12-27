@@ -1,5 +1,7 @@
 const http = require("http");
-const { Server } = require("socketio");
+const { Server } = require("socket.io");
+
+const PORT = process.env.PORT || 3000;
 
 //db start
 require("./db/db");
@@ -16,6 +18,6 @@ io.on("connection", (socket) => {
   console.log("new client");
 });
 
-server.listen(5000, () => {
+server.listen(PORT, () => {
   console.log();
 });
