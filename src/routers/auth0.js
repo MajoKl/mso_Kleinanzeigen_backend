@@ -1,9 +1,12 @@
 const express = require("express");
+const axios = require("axios");
 
-const router = express.Router();
+const User = require("../models/User");
 
-const CLIENT_ID 
-const CLIENT_SECRET = proccess.env.
+const router = new express.Router();
+
+const CLIENT_ID = process.env.OAuth_CLIENT_ID;
+const CLIENT_SECRET = process.env.OAuth_CLIENT_SECRET;
 const GITHUB_URL = "https://github.com/login/oauth/access_token";
 
 router.get("/oauth/redirect", (req, res) => {
@@ -14,8 +17,12 @@ router.get("/oauth/redirect", (req, res) => {
       Accept: "application/json",
     },
   }).then((response) => {
+    res.cookies["auth_token"] = response.data;
+
+    console.log(response.data);
+
     res.redirect(
-      `http://localhost:3000?access_token=${response.data.access_token}`
+      `http://localhost:3000/start?access_token=${response.data.access_token}`
     );
   });
 });
