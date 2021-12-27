@@ -2,8 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-const CLIENT_ID = "e01038b01f2f337f50a8";
-const CLIENT_SECRET = "35861282d86dd004044b42c9c897bd73646b0b16";
+const CLIENT_ID 
+const CLIENT_SECRET = proccess.env.
 const GITHUB_URL = "https://github.com/login/oauth/access_token";
 
 router.get("/oauth/redirect", (req, res) => {
