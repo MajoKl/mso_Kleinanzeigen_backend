@@ -1,9 +1,12 @@
 const { Router } = require("express");
-const { model } = require("mongoose");
 
-const router = Router();
+const { requiresAuth } = require("express-openid-connect");
 
-router.post("/create", () => {});
+const router = new Router();
+
+router.get("/create", requiresAuth(), async (req, res) => {
+  res.send("a");
+});
 
 router.get("/", (req, res) => {});
 
