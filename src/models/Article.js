@@ -26,14 +26,30 @@ const articleSchema = new Schema(
       if (!ISBN.Validate(val.strip()))
         throw new Error("This is not a valid isbn");
     },
-    categories: {},
-    basis_fornegotioations: {},
-    price: {},
+    categories: {
+      type: Array,
+      default: [],
+      description: "Stores the _id of the categories of the article",
+    },
+    basis_fornegotioations: {
+      type: String,
+      enum: ["Festpreis", "Verhandlungsbasis", "Zu Verschenken"],
+      description: "Stores the diffent fornegotioations of the articles",
+    },
+    price: {
+      type: Number,
+      required: true,
+      nullable: true,
+      default: 0,
+    },
     owner: {
       type: Mongoose.Schema.Type.ObjectID,
     },
   },
-  {}
+  {
+    timestamps: true,
+    strict: true,
+  }
 );
 
 const articleModel = new Model("Article", articleSchema);

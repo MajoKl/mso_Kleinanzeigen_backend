@@ -6,9 +6,12 @@ const categorieSchema = new Schema(
       type: String,
       required: true,
     },
-    articles: {
-      type: Mongoose.Schema.Type.ObjectID,
-    },
   },
   {}
 );
+
+categorieSchema.virtual("articles", {
+  ref: "Article",
+  localfield: "_id",
+  foreingField: "categories",
+});
