@@ -2,7 +2,11 @@ const { Schema } = require("mongoose");
 
 const deatilschema = new Schema(
   {
-    count: Number,
+    count: {
+      type: "integer",
+      nullable: false,
+      required: true,
+    },
   },
   {}
 );
