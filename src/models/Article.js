@@ -42,6 +42,10 @@ const articleSchema = new Schema(
       nullable: true,
       default: 0,
     },
+    private: {
+      type: Boolean,
+      discription: "Schows if the article is private or not",
+    },
     owner: {
       type: Mongoose.Schema.Type.ObjectID,
     },
