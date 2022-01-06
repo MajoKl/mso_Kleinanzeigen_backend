@@ -1,4 +1,4 @@
-const { Schema, Model, Mongoose } = require("mongoose");
+const { Schema, model, mongoose } = require("mongoose");
 const ISBN = require("isbn-validate");
 
 const articleSchema = new Schema(
@@ -24,7 +24,7 @@ const articleSchema = new Schema(
       val = String(val);
       val.re;
       if (!ISBN.Validate(val.strip()))
-        throw new Error("This is not a valid isbn");
+        throw new Error("This is not a valid ISBN");
     },
     categories: {
       type: Array,
@@ -47,7 +47,7 @@ const articleSchema = new Schema(
       discription: "Schows if the article is private or not",
     },
     owner: {
-      type: Mongoose.Schema.Type.ObjectID,
+      type: Schema.Types.ObjectId,
     },
   },
   {
@@ -56,6 +56,6 @@ const articleSchema = new Schema(
   }
 );
 
-const articleModel = new Model("Article", articleSchema);
+const articleModel = new model("Article", articleSchema);
 
 module.exports = articleModel;
