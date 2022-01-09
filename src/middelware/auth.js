@@ -1,24 +1,27 @@
+const { permittedFieldsOf } = require("@casl/ability/extra");
+const User = require("../models/User");
+
 const jwt = require("jsonwebtoken");
 
-auth = async function (req, res, next) {
+auth = async (req, res, next) => {
+  const token = req.cookies["auth_token"];
   try {
-    const token = req.cookies["auth_token"];
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findOne({
+    let user = await User.findOne({
       _id: decoded._id,
       "tokens.token": token,
     });
 
-    if (!user) throw new Error();
+    if (!user) throw new Error("You are unautherized!");
+    user.abb = user.generateAbblilities();
 
-    req.token = token;
     req.user = user;
-
     next();
-  } catch (e) {
-    const rediURI = process.env.URI || "http://localhost:3005";
-    res.redirect(`${rediURI}/login`);
+  } catch (error) {
+    console.log(error);
+    return res.status(401).send({ error: "Please sign in again" });
   }
 };
+
+module.exports = auth;

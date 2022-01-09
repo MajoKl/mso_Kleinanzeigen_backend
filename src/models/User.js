@@ -1,8 +1,9 @@
-const { Schema, model, mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const ISBN = require("isbn-validate");
 const jwt = require("jsonwebtoken");
+const csl = require("../utils/sandcasle/usercasl.js");
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -14,33 +15,32 @@ const userSchema = new Schema(
     grade: {
       type: String,
       required: true,
-      validator: (value) => {
-        pattern = /class[0-9]+[a-zA-Z]/i;
+      validate: (value) => {
+        const pattern = /class[0-9]+[a-zA-Z]/i;
         if (!pattern.test(value)) throw new Error("Not a valid grade");
       },
-      role: {
-        type: String,
-        required: true,
-        default: "user",
-      },
-      tokens: [
-        {
-          token: {
-            type: String,
-            require: true,
-          },
+    },
+    role: {
+      type: String,
+      default: "user",
+      required: true,
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
         },
-      ],
-      private: {
-        type: Boolean,
-        default: false,
-        required: true,
       },
+    ],
+    private: {
+      type: Boolean,
+      default: false,
+      required: true,
     },
   },
   {
     timestamps: true,
-    strict: true,
   }
 );
 
@@ -54,9 +54,9 @@ userSchema.methods.generateAuthToken = async function () {
   const user = this;
 
   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, {
-    expiresIn: 60 * 60,
+    // expiresIn: 60 * 60,
   });
-
+  if (!user.tokens) user.tokens = [];
   user.tokens = user.tokens.concat({ token });
 
   await user.save();
@@ -64,10 +64,21 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-userSchema.methods.generateAbblilities = async function () {
-  const abb = "";
+userSchema.methods.generateAbblilities = function () {
+  const abb = csl.defineAbilityFor(this);
+
+  return abb;
 };
 
-const userModel = new model("User", userSchema);
+userSchema.methods.toJSON = function () {
+  const that = this.toObject();
+
+  delete that.tokens;
+  delete that.abb;
+  delete that.sit;
+  return that;
+};
+
+const userModel = new mongoose.model("User", userSchema);
 
 module.exports = userModel;

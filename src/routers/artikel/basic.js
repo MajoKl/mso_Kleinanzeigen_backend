@@ -1,6 +1,7 @@
 const router = new require("express").Router();
 
-const Article = require("../models/Article");
+const me = require("./userArtikel/me");
 
-router.post("/", auth(), async (req, res) => {});
-router.get("/", auth(), async (req, res) => {});
+router.use(me);
+
+module.exports = router;

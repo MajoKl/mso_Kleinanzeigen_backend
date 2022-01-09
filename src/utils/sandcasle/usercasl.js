@@ -1,23 +1,12 @@
-require("./rulesin_JSON");
+require("./rulesinjson");
 
 const { AbilityBuilder, Ability } = require("@casl/ability");
-const {
-  visitor,
-  teacher,
-  tafelritter,
-  admin,
-  defaulta,
-} = require("./rulesin_JSON");
+const { adminperms, userperms } = require("./rulesinjson");
 
 let ANONYMOUS_ABILITY;
 
 function defineAbilityFor(user) {
-  if (user) {
-    return new Ability(defineRulesFor(user));
-  }
-
-  ANONYMOUS_ABILITY = new Ability(defineRulesFor({}));
-  return ANONYMOUS_ABILITY;
+  return new Ability(defineRulesFor(user));
 }
 
 function defineRulesFor(user) {
@@ -25,19 +14,10 @@ function defineRulesFor(user) {
 
   switch (user.role) {
     case "admin":
-      perms = adminperms(perms, user);
+      perms = adminperms(user);
       break;
-    case "tafelritter":
-      perms = tafelritterperms(perms, user);
-      break;
-    case "visitor":
-      perms = visitorperms(perms, user);
-      break;
-    case "teacher":
-      perms = teacherperms(perms, user);
-      break;
-    default:
-      perms = anonymperms(perms, user);
+    case "user":
+      perms = userperms(user);
       break;
   }
   return perms;

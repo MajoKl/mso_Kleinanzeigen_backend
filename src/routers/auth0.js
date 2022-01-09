@@ -27,33 +27,40 @@ router.get("/oauth/redirect", async (req, res) => {
       },
     })
       .then(async (response) => {
-        const user = await User.find({
+        let user = await User.find({
           login:
             response.data.login || "Permission denied function fuck this user",
           id: response.data.id,
         });
 
         if (!user.length != 0) {
+          console.log("this shit");
           try {
-            newuser = new User({
+            const data = {
               name: response.data.login,
-              id: response.data.id,
-              grade: response.data.grade || "Waiting for k",
-            });
-
-            res.cookie("auth_token", await user.genenerateAuthToken());
+              sit: response.data.id,
+              grade: response.data.grade || "class2002d",
+            };
+            const hä = new User({ ...data, role: undefined });
+            await hä.save();
+            console.log(hä);
+            user = hä;
           } catch (error) {
             console.error(error);
             return res.status(404).send({ error });
           }
         }
 
-        res.cookie("auth_token", user.genenerateAuthToken());
+        if (user.length) user = user[0];
+
+        const token = await user.generateAuthToken();
+        res.cookie("auth_token", token);
         return res.redirect(
           `http://localhost:3005/start?access_token=${response.data.access_token}`
         );
       })
       .catch((error) => {
+        console.error(error);
         return res.status(500).send({ error });
       });
   });
