@@ -1,4 +1,3 @@
-const { permittedFieldsOf } = require("@casl/ability/extra");
 const User = require("../models/User");
 
 const jwt = require("jsonwebtoken");

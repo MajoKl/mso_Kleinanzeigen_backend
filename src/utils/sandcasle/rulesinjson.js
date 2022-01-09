@@ -47,7 +47,7 @@ module.exports.userperms = function userperms(user) {
       action: "read",
       subject: "User",
       fields: ["name", "Articles", "abb"],
-      conditions: { private: false, _id: user._id },
+      conditions: { private: false },
     },
   ];
 };

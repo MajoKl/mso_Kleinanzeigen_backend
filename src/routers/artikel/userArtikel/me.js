@@ -12,8 +12,6 @@ router.get("/me/articles", async (req, res) => {
   if (req.user.abb.cannot("read", "Article"))
     res.status(401).send({ error: errormessages.permissonerror });
 
-  console.log("adfasdf");
-
   const { limit, skip } = req.query;
 
   try {
@@ -56,6 +54,25 @@ router.post("/me/articles", async (req, res) => {
     return res.send(article);
   } catch (error) {
     res.sendStatus(500).send();
+  }
+});
+
+router.get("/users/:name", async (req, res) => {
+  if (req.user.abb.cannot("read", "User", "name"))
+    return res.status(401).send();
+
+  try {
+    const user = await User.findOne({ Name: req.query.name }).accessibleBy(
+      req.user.abb
+    );
+
+    if (!user) return res.status(401).send({ errror: "User not found" });
+    if (user.private)
+      response.status(404).send({ errror: "The user is private" });
+    res.status(200).send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send();
   }
 });
 
