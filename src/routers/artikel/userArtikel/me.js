@@ -21,7 +21,7 @@ router.get("/me/articles", async (req, res) => {
         limit,
         skip,
       },
-    })
+    });
 
     return res.status(200).send(req.user.Articles);
   } catch (error) {
@@ -30,11 +30,7 @@ router.get("/me/articles", async (req, res) => {
   }
 });
 
-router.post("/me/articles/favorites", async (req, res)=>{
-
-
-  
-})
+router.post("/me/articles/favorites", async (req, res) => {});
 
 router.post("/me/articles", async (req, res) => {
   const data = req.body;
@@ -82,20 +78,20 @@ router.get("/users/:name", auth, async (req, res) => {
   }
 });
 
-router.get("/articles/:user", auth, async (req, res) => {
-  if (req.user.abb.cannot("read", "User")) return res.status(401).send();
-  const user;
-  try {
-    user = await User.findOne({name: req.params.user}).populate({path:"Articles"},{
+// router.get("/articles/:user", auth, async (req, res) => {
+//   if (req.user.abb.cannot("read", "User")) return res.status(401).send();
+//   const user = un
+//   try {
+//     user = await User.findOne({name: req.params.user}).populate({path:"Articles"},{
 
-      skip: req.query.skip,
-      limit: req.query.limit
+//       skip: req.query.skip,
+//       limit: req.query.limit
 
-    })
-  } catch (error) {
-    
-  }
+//     })
+//   } catch (error) {
 
-});
+//   }
+
+// });
 
 module.exports = router;
