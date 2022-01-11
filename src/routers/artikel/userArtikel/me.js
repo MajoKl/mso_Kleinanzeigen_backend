@@ -21,7 +21,7 @@ router.get("/me/articles", async (req, res) => {
         limit,
         skip,
       },
-    });
+    })
 
     return res.status(200).send(req.user.Articles);
   } catch (error) {

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const ISBN = require("isbn-validate");
+const dt = require("./subshemas/Details");
 
 const articleSchema = new mongoose.Schema(
   {
@@ -32,7 +33,9 @@ const articleSchema = new mongoose.Schema(
       default: [],
       description: "Stores the _id of the categories of the article",
     },
-
+    details: {
+      type: dt,
+    },
     basis_fornegotioations: {
       type: String,
       enum: ["Festpreis", "Verhandlungsbasis", "Zu Verschenken"],

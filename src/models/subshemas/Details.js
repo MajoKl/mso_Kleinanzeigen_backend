@@ -3,7 +3,7 @@ const { Schema } = require("mongoose");
 const deatilschema = new Schema(
   {
     count: {
-      type: "integer",
+      type: Number,
       nullable: false,
       required: true,
     },
@@ -24,3 +24,5 @@ const deatilschema = new Schema(
   },
   { timestamps: true }
 );
+
+module.exports = deatilschema;
