@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/MajoKl/mso_Kleinanzeigen_backend#readme",
   "dependencies": {
+    "@casl/ability": "^5.4.3",
+    "@casl/mongoose": "^6.0.0",
     "axios": "^0.24.0",
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
@@ -26,6 +28,7 @@
     "env-cmd": "^10.1.0",
     "express": "4.17.1",
     "install": "^0.13.0",
+    "cookie-parser": "1.4.5",
     "isbn-validate": "^1.0.3",
     "jsonwebtoken": "8.5.1",
     "mongoose": "6.1.1",
