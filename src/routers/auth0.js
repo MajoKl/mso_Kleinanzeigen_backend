@@ -11,6 +11,7 @@ const GITHUB_URL = "https://github.com/login/oauth/access_token";
 
 router.get("/oauth/redirect", async (req, res) => {
   console.log(req.query);
+  console.log(req.headers["x-forwarded-for"]);
   axios({
     method: "POST",
     url: `${GITHUB_URL}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${req.query.code}`,
@@ -55,9 +56,7 @@ router.get("/oauth/redirect", async (req, res) => {
 
         const token = await user.generateAuthToken();
         res.cookie("auth_token", token);
-        return res.redirect(
-          `http://localhost:3005/start?access_token=${response.data.access_token}`
-        );
+        return res.redirect(`http://localhost:3005/`);
       })
       .catch((error) => {
         console.error(error);

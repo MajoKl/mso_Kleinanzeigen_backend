@@ -76,4 +76,6 @@ router.get("/users/:name", async (req, res) => {
   }
 });
 
+router.get("/users/:name/articles", async (req, res) => {});
+
 module.exports = router;
