@@ -78,7 +78,9 @@ router.get("/users/:name", auth, async (req, res) => {
   }
 });
 
+
 router.get("/users/:name/articles", async (req, res) => {});
+
 
 // router.get("/articles/:user", auth, async (req, res) => {
 //   if (req.user.abb.cannot("read", "User")) return res.status(401).send();
@@ -95,5 +97,6 @@ router.get("/users/:name/articles", async (req, res) => {});
 //   }
 
 // });
+
 
 module.exports = router;
