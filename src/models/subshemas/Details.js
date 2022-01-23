@@ -21,6 +21,7 @@ const deatilschema = new Schema(
           throw new Error("This is not a valid ISBN");
       },
     },
+    
   },
   { timestamps: true }
 );
