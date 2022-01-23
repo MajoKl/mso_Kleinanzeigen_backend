@@ -28,13 +28,13 @@ router.get("/oauth/redirect", async (req, res) => {
       },
     })
       .then(async (response) => {
-        let user = await User.find({
+        let user = await User.findOne({
           login:
             response.data.login || "Permission denied function fuck this user",
           id: response.data.id,
         });
 
-        if (!user.length != 0) {
+        if (!user) {
           console.log("this shit");
           try {
             const data = {
