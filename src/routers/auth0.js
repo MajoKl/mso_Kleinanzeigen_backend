@@ -11,7 +11,6 @@ const GITHUB_URL = "https://github.com/login/oauth/access_token";
 
 router.get("/oauth/redirect", async (req, res) => {
   console.log(req.query);
-  console.log(req.headers["x-forwarded-for"]);
   axios({
     method: "POST",
     url: `${GITHUB_URL}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${req.query.code}`,
@@ -28,13 +27,13 @@ router.get("/oauth/redirect", async (req, res) => {
       },
     })
       .then(async (response) => {
-        let user = await User.find({
+        let user = await User.findOne({
           login:
             response.data.login || "Permission denied function fuck this user",
           id: response.data.id,
         });
 
-        if (!user.length != 0) {
+        if (!user) {
           console.log("this shit");
           try {
             const data = {
