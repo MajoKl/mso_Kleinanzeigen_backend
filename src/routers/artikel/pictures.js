@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const fs = require("fs");
 
 const router = new express.Router();
 
@@ -9,7 +10,7 @@ const upload = multer({
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      return cb(new Error("File must be a jpg jpeg png"));
+      return cb(new Error("File must be a .jpg, .jpeg, .png"));
     }
 
     cb(undefined, true);
