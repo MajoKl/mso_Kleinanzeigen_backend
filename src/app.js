@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 //router import
 const auto = require("./routers/auth0");
-const me = require("./routers/users/me");
+const basic = require("./routers/artikel/basic");
 const article = require("./routers/artikel/userArtikel/me");
 const cookieParser = require("cookie-parser");
 
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use(new express.Router(), "/api/user");
 app.use(auto);
-app.use("/api", me);
+app.use("/api/", basic);
 app.use("/api/", article);
 
 app.get("/api/", (req, res) => {

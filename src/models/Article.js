@@ -58,6 +58,11 @@ const articleSchema = new mongoose.Schema(
       discription: "Schows if the article is private or not",
     },
 
+    pictures: {
+      type: [{ path: String, name: String }],
+      default: [],
+    },
+
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
