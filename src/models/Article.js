@@ -59,7 +59,7 @@ const articleSchema = new mongoose.Schema(
     },
 
     pictures: {
-      type: [{ path: String, name: String }],
+      type: [{ name: String }],
       default: [],
     },
 

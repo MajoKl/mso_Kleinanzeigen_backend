@@ -3,6 +3,8 @@ const multer = require("multer");
 const fs = require("fs");
 const Article = require("../../models/Article");
 const Path = require("path");
+const Sharp = require("sharp");
+const { getSystemErrorMap } = require("util");
 
 const router = new express.Router();
 
@@ -30,8 +32,8 @@ router.post(
     try {
       const article = await Article.findOne({ _id: article_id });
 
-      if (req.user.abb.can("update", "Article")) fs.writeFileSync(file);
-
+      if (req.user.abb.cannot("update", "Article"))
+        return res.status(404).send();
       if (name.length > 20)
         return res.status(400).send({
           Error: `Name ist to long. Please enter a name with less than 20 characters`,
@@ -43,13 +45,20 @@ router.post(
         });
 
       const path = Path.join(
-        __dirname,
-        `../../../public/ArtiklePhotos/${article.id}`
+        process.env.ArticlePicturePath,
+        "ArtiklePhoto",
+        article.id
       );
 
       if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
 
+      file.buffer = await Sharp(file.buffer).png().toBuffer();
+
       fs.writeFileSync(Path.join(path, `${name}.png`), file.buffer);
+
+      article.pictures.push({ path, name: `${name}.png` });
+
+      await article.save();
 
       return res.status(200).send();
     } catch (e) {
@@ -60,5 +69,22 @@ router.post(
     res.status(400).send({ error: error.message });
   }
 );
+
+router.get("/pictures", auth, async (req, res) => {
+  const { ArticleID, Pictures } = req.body;
+
+  if (req.user.abb.cannot("read", "Article"))
+    res
+      .status(404)
+      .send({ Error: "You are not allowed to to perforem this action." });
+
+  try {
+    const pictures = await Article.findOne({ _id: ArticleID }).pictures;
+
+    return res.send(pictures);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;
