@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const Path = require("path");
 const auth = require("./middelware/auth");
-const privacy = require("./middelware/privacy");
+const privacy = require("./middelware/pictures/privacy");
 //router import
 const auto = require("./routers/auth0");
 const basic = require("./routers/artikel/basic");
