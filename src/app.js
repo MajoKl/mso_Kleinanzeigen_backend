@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 const Path = require("path");
 const auth = require("./middelware/auth");
-
+const privacy = require("./middelware/privacy");
 //router import
 const auto = require("./routers/auth0");
 const basic = require("./routers/artikel/basic");
@@ -34,7 +34,7 @@ app.use("/api/", article);
 
 // static routes
 
-app.use("/api/", auth, express.static("public"));
+app.use("/api/", auth, privacy, express.static("public"));
 
 app.get("/api/", (req, res) => {
   res.send({ error: "Du bist komisch" });
