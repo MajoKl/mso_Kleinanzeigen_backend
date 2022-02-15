@@ -46,7 +46,7 @@ router.post(
 
       const path = Path.join(
         process.env.ArticlePicturePath,
-        "ArtiklePhoto",
+
         article.id
       );
 
@@ -80,6 +80,7 @@ router.get("/pictures", auth, async (req, res) => {
 
   try {
     const pictures = await Article.findOne({ _id: ArticleID }).pictures;
+    if (!pictures) return res.status(404).send({ Error: "Article not found." });
 
     return res.send(pictures);
   } catch (error) {
