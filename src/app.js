@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const Path = require("path");
 const auth = require("./middelware/auth");
+const priv = require("./middelware/pictures/privacy");
 
 //router import
 const auto = require("./routers/auth0");
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 //routers
 
 // app.use(new express.Router(), "/api/user");
+app.use(priv);
 app.use(auto);
 app.use("/api/", basic);
 app.use("/api/", article);

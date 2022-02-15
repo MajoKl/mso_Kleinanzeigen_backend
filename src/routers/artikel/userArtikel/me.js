@@ -59,7 +59,7 @@ router.post("/me/articles", async (req, res) => {
   }
 });
 
-router.get("/users/:name", auth, async (req, res) => {
+router.get("/users/:name", async (req, res) => {
   if (req.user.abb.cannot("read", "User", "name"))
     return res.status(401).send();
 

@@ -1,5 +1,9 @@
 const Article = require("../auth");
 
 const private = async (req, res, next) => {
-  req.user;
+  console.log(req.url);
+
+  next();
 };
+
+module.exports = private;
