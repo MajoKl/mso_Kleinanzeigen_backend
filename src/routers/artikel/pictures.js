@@ -93,8 +93,13 @@ router.get("/pictures", auth, async (req, res) => {
       .send({ Error: "You are not allowed to to perforem this action." });
 
   try {
-    const pictures = await Article.findOne({ _id: ArticleID }).pictures;
-    if (!pictures) return res.status(404).send({ Error: "Article not found." });
+    const article = await Article.findOne({ _id: ArticleID });
+
+    if (!article) res.status(400).send({ Error: "Article not found." });
+
+    // if (!pictures) return res.status(404).send({ Error: "Article not found." });
+
+    const pictures = article.pictures || [];
 
     return res.send(pictures);
   } catch (error) {
