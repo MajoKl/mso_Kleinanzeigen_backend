@@ -18,7 +18,7 @@ process.env.ArticlePicturePath = Path.join(
   "../public/ArticlePhotos/"
 );
 
-app.use(cors({ credentials: true, origin: true }));
+//app.use(cors({ credentials: true, origin: true }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +28,9 @@ app.use(express.urlencoded({ extended: false }));
 //routers
 
 // app.use(new express.Router(), "/api/user");
-app.use(privacy);
+
+//Todo: gucken für was die scheiße war
+//app.use(privacy);
 app.use(auto);
 app.use("/api/", basic);
 app.use("/api/", article);
