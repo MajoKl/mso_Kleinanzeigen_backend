@@ -1,7 +1,9 @@
 const http = require("http");
+const https = require("https");
+
 const { Server } = require("socket.io");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 13000;
 
 //db start
 require("./db/db");
@@ -15,9 +17,11 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
+  socket.emit("penis");
+
   console.log("new client");
 });
 
 server.listen(PORT, () => {
-  console.log();
+  console.log("a");
 });

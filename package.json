@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon  src/index.js -e js,hbs,css ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "env-cmd -f ./config/dev.env jest"
   },
   "repository": {
     "type": "git",
@@ -19,20 +19,33 @@
   },
   "homepage": "https://github.com/MajoKl/mso_Kleinanzeigen_backend#readme",
   "dependencies": {
-    "axios": "^0.24.0",
+    "@casl/ability": "5.4.3",
+    "@casl/mongoose": "6.0.0",
+    "axios": "0.24.0",
     "bcryptjs": "2.4.3",
+    "cookie-parser": "1.4.5",
     "cors": "2.8.5",
-    "dotenv": "^10.0.0",
-    "env-cmd": "^10.1.0",
+    "dotenv": "10.0.0",
+    "env-cmd": "10.1.0",
     "express": "4.17.1",
-    "install": "^0.13.0",
-    "isbn-validate": "^1.0.3",
+    "install": "0.13.0",
+    "isbn-validate": "1.0.3",
     "jsonwebtoken": "8.5.1",
-    "mongoose": "6.1.1",
-    "npm": "^8.3.0",
-    "socket.io": "^4.4.0"
+    "mongoose": "6.2.0",
+    "multer": "1.4.4",
+    "npm": "8.3.0",
+    "sharp": "0.30.0",
+    "socket.io": "4.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "jest": "27.5.1",
+    "nodemon": "2.0.15",
+    "superagent": "7.1.1",
+    "supertest": "6.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
