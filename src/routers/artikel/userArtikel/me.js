@@ -59,7 +59,7 @@ router.post("/me/articles", async (req, res) => {
   }
 });
 
-router.update("/me/articles", async (req, res) => {
+router.put("/me/articles", async (req, res) => {
   invalid_update_keys = ["realName", "owner"];
 
   const data = req.body;
