@@ -27,19 +27,33 @@ router.post(
   upload.single("pic"),
   async (req, res) => {
     const file = req.file;
+    req.query.name = req.query.name + ".png";
     const { name, article_id } = req.query;
     console.log(`${name} uploaded to ${article_id}`);
     try {
-      const article = await Article.findOne({ _id: article_id });
+      const article = await Article.findOne({
+        _id: article_id,
+        owner: req.user._id,
+      });
+
+      if (!article)
+        return res
+          .status(404)
+          .send({ error: "This article does not exist for this user" });
 
       if (req.user.abb.cannot("update", "Article"))
         return res.status(404).send();
-      if (name.length > 20)
+      if (name.length > 24)
         return res.status(400).send({
           Error: `Name ist to long. Please enter a name with less than 20 characters`,
         });
 
-      if (article.pictures.filter((f) => f.name === name).length > 0)
+      if (
+        article.pictures.filter((f) => {
+          console.log(f.name + "         " + name);
+          return f.name === name;
+        }).length > 0
+      )
         return res.status(400).send({
           Error: `File does exist. Please user an other name than "${name}"`,
         });
@@ -54,9 +68,9 @@ router.post(
 
       file.buffer = await Sharp(file.buffer).png().toBuffer();
 
-      fs.writeFileSync(Path.join(path, `${name}.png`), file.buffer);
+      fs.writeFileSync(Path.join(path, `${name}`), file.buffer);
 
-      article.pictures.push({ path, name: `${name}.png` });
+      article.pictures.push({ path, name: `${name}` });
 
       await article.save();
 
@@ -80,8 +94,13 @@ router.get("/pictures", auth, async (req, res) => {
       .send({ Error: "You are not allowed to to perforem this action." });
 
   try {
-    const pictures = await Article.findOne({ _id: ArticleID }).pictures;
-    if (!pictures) return res.status(404).send({ Error: "Article not found." });
+    const article = await Article.findOne({ _id: ArticleID });
+
+    if (!article) res.status(400).send({ Error: "Article not found." });
+
+    // if (!pictures) return res.status(404).send({ Error: "Article not found." });
+
+    const pictures = article.pictures || [];
 
     return res.send(pictures);
   } catch (error) {

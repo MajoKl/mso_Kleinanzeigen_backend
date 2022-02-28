@@ -1,8 +1,18 @@
-describe(" fuck this shit no one swars like that ", () => {
-  test("at least this shit works", () => {
-    expect(2).not.toBe(1);
-  });
+describe("User.self functions", () => {
+  test.todo("User get own Information");
+  test.todo("User.set specific information");
+  test.todo("User.delete self");
+  test.todo("User.login");
+  test.todo("User.logout");
+  test.todo("User.create article");
+  test.todo("User.delete article");
+  test.todo("User.add friend");
+  test.todo("User.remove friend");
+  test.todo("User.chat with friend");
+  test.todo("User.chat with stranger");
+  test.todo("User.chat block some one");
+});
 
-  it.todo("fuck pita");
-  test.todo("fuck peta");
+describe("User.toOther user Functions", () => {
+  test.todo("User.get Article");
 });

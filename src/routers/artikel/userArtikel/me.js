@@ -57,6 +57,7 @@ router.post("/me/articles", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.put("/me/articles", async (req, res) => {
   invalid_update_keys = ["realName", "owner"];
 
@@ -85,13 +86,14 @@ router.put("/me/articles", async (req, res) => {
 });
 
 router.get("/users/:name", async (req, res) => {
+=======
+router.get("/users", async (req, res) => {
+>>>>>>> 26e6c9f47619cbf57a915a1cbbcef96b1b527dc7
   if (req.user.abb.cannot("read", "User", "name"))
     return res.status(401).send();
 
   try {
-    const user = await User.findOne({ Name: req.query.name }).accessibleBy(
-      req.user.abb
-    );
+    const user = await User.findOne({ Name: req.query.name });
 
     if (!user) return res.status(401).send({ errror: "User not found" });
     if (user.private)
@@ -103,20 +105,29 @@ router.get("/users/:name", async (req, res) => {
   }
 });
 
-// router.get("/articles/:user", auth, async (req, res) => {
-//   if (req.user.abb.cannot("read", "User")) return res.status(401).send();
-//   const user = un
-//   try {
-//     user = await User.findOne({name: req.params.user}).populate({path:"Articles"},{
+router.get("/users/articles", async (req, res) => {
+  const name = req.query.name || req.user.name;
 
-//       skip: req.query.skip,
-//       limit: req.query.limit
+  const matcher = {};
 
-//     })
-//   } catch (error) {
+  if (req.user.name !== name) matcher.private = false;
 
-//   }
+  try {
+    const user = await User.findOne({ name: name }).populate({
+      path: "Articles",
+      options: {
+        skip: req.query.skip,
+        limit: req.query.limit,
+      },
+      match: matcher,
+    });
 
-// });
+    if (!user) return res.status(400).send({ error: "user not found" });
+
+    res.send(user.Articles);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 module.exports = router;

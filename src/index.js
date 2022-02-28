@@ -12,17 +12,13 @@ require("./db/db");
 
 const app = require("./app");
 
-var server = undefined;
-
-if (process.env.NODE_ENV !== "production") {
-  server = http.createServer(app);
-} else {
-  server = https.createServer(app);
-}
+const server = http.createServer(app);
 
 const io = new Server(server);
 
 io.on("connection", (socket) => {
+  socket.emit("penis");
+
   console.log("new client");
 });
 
