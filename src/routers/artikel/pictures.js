@@ -63,6 +63,7 @@ router.post(
       return res.status(200).send();
     } catch (e) {
       console.log(e);
+      console.log("Yeeee Jonas ist ein absturz 12er!!");
     }
   },
   (error, req, res, next) => {

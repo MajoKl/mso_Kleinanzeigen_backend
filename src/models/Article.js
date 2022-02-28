@@ -26,6 +26,7 @@ const articleSchema = new mongoose.Schema(
     article_type: {
       type: String,
       enum: ["Ich biete", "Ich Suche", "Ich tausche"],
+      immutable: true,
     },
 
     categories: {
@@ -33,9 +34,26 @@ const articleSchema = new mongoose.Schema(
       default: [],
       description: "Stores the _id of the categories of the article",
     },
-    details: {
-      type: dt,
+    count: {
+      type: Number,
+      nullable: false,
+      required: true,
     },
+    ISBN: {
+      type: String,
+      required: false,
+      discription: {
+        type: "String",
+        discription: "Stores the isbn of the article",
+      },
+      validator: (val) => {
+        val = String(val);
+        val.re;
+        if (!ISBN.Validate(val.strip()))
+          throw new Error("This is not a valid ISBN");
+      },
+    },
+
     basis_fornegotioations: {
       type: String,
       enum: ["Festpreis", "Verhandlungsbasis", "Zu Verschenken"],
@@ -67,6 +85,7 @@ const articleSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
+      immutable: true,
     },
   },
   {

@@ -59,6 +59,40 @@ router.post("/me/articles", async (req, res) => {
   }
 });
 
+router.update('/me/articles', async (req, res) => {
+
+  invalid_update_keys = ["realName","owner",  ]
+
+  const {_id},data = req.body
+  
+  const invkey = req.body.filter((dat)=> invalid_update_keys.includes(dat))
+    if(invkey.length > 0)
+  return    res.status(400).send({error: `Following key cant be updated`})
+
+
+  try {
+    
+    const article = await Article.findOne({ _id, owner: req.user._id})
+
+    Object.keys(req.body).forEach(key => {
+
+      article[key] = req.body[key]
+
+    })
+
+    await article.save();
+
+    res.send(article)
+  
+
+
+
+  } catch (error) {
+    res.send(error.message)
+  }
+
+})
+
 router.get("/users/:name", async (req, res) => {
   if (req.user.abb.cannot("read", "User", "name"))
     return res.status(401).send();
