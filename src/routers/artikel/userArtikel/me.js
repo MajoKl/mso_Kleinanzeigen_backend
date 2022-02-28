@@ -30,8 +30,6 @@ router.get("/me/articles", async (req, res) => {
   }
 });
 
-router.post("/me/articles/favorites", async (req, res) => {});
-
 router.post("/me/articles", async (req, res) => {
   const data = req.body;
   let article;
