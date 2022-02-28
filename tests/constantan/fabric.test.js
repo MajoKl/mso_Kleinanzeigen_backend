@@ -42,8 +42,19 @@ const articleOne = {
   article_type: "Ich Suche",
   price: 4455,
   private: true,
+  owner: userOneId,
 };
 
+const articleOne = {
+  Name: "ArticleOne",
+  realName: "ArticleOne",
+  categories: ["Bücher", "Sience", "Hermann", "KaNdrdIAsruNzoh"],
+  basis_fornegotioations: "Festpreis",
+  article_type: "Ich Suche",
+  price: 4455,
+  private: true,
+  owner: userOneId,
+};
 const setUpDatabase = async () => {
   //User setUpDatabasew
   await User.deleteMany();
@@ -53,6 +64,9 @@ const setUpDatabase = async () => {
   await new User(userTwo).save();
 
   //Artikel setUpDatabase
+
+  await new Article(articleOne).save();
+  await new Article(articleTwo).save();
 };
 
 module.exports = {
@@ -61,6 +75,9 @@ module.exports = {
 
   userTwo,
   userTwoId,
+
+  articleOne,
+  articleTwo,
 
   setUpDatabase,
 };
