@@ -27,21 +27,20 @@ router.get("/oauth/redirect", async (req, res) => {
       },
     })
       .then(async (response) => {
-        let user = await User.find({
+        let user = await User.findOne({
           login:
             response.data.login || "Permission denied function fuck this user",
           id: response.data.id,
         });
 
-        if (!user.length != 0) {
-          console.log("this shit");
+        if (!user) {
           try {
             const data = {
               name: response.data.login,
               sit: response.data.id,
               grade: response.data.grade || "class2002d",
             };
-            const hä = new User({ ...data, role: undefined });
+            const hä = new User({ ...data });
             await hä.save();
             console.log(hä);
             user = hä;
