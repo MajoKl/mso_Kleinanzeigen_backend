@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     friends: [mongoose.Schema.Types.ObjectId],
     blocklist: [mongoose.Schema.Types.ObjectId],
+    favorites: [mongoose.Schema.Types.ObjectId],
     tokens: [
       {
         token: {

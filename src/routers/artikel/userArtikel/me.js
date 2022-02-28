@@ -30,8 +30,6 @@ router.get("/me/articles", async (req, res) => {
   }
 });
 
-router.post("/me/articles/favorites", async (req, res) => {});
-
 router.post("/me/articles", async (req, res) => {
   const data = req.body;
   let article;
@@ -100,21 +98,5 @@ router.get("/users/articles", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
-// router.get("/articles/:user", auth, async (req, res) => {
-//   if (req.user.abb.cannot("read", "User")) return res.status(401).send();
-//   const user = un
-//   try {
-//     user = await User.findOne({name: req.params.user}).populate({path:"Articles"},{
-
-//       skip: req.query.skip,
-//       limit: req.query.limit
-
-//     })
-//   } catch (error) {
-
-//   }
-
-// });
 
 module.exports = router;
