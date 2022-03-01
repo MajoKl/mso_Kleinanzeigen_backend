@@ -111,6 +111,7 @@ router.get("/users/articles", async (req, res) => {
   const matcher = {};
 
   if (req.user.name !== name) matcher.private = false;
+  
 
   try {
     const user = await User.findOne({ name: name }).populate({
