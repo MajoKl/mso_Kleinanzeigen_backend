@@ -57,7 +57,6 @@ router.post("/me/articles", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 router.put("/me/articles", async (req, res) => {
   invalid_update_keys = ["realName", "owner"];
 
@@ -86,9 +85,6 @@ router.put("/me/articles", async (req, res) => {
 });
 
 router.get("/users/:name", async (req, res) => {
-=======
-router.get("/users", async (req, res) => {
->>>>>>> 26e6c9f47619cbf57a915a1cbbcef96b1b527dc7
   if (req.user.abb.cannot("read", "User", "name"))
     return res.status(401).send();
 
@@ -111,7 +107,6 @@ router.get("/users/articles", async (req, res) => {
   const matcher = {};
 
   if (req.user.name !== name) matcher.private = false;
-  
 
   try {
     const user = await User.findOne({ name: name }).populate({
