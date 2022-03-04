@@ -35,10 +35,6 @@ router.get("/oauth/redirect", async (req, res) => {
         });
 
         if (!user) {
-<<<<<<< HEAD
-=======
-          console.log("this shit");
->>>>>>> 26e6c9f47619cbf57a915a1cbbcef96b1b527dc7
           try {
             const data = {
               name: response.data.login,
