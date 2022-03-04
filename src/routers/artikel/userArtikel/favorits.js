@@ -29,4 +29,6 @@ router.post("/me/articles/favorites", async (req, res) => {
   const articles = await Article.findMany({ _id: { $in: req.body } });
 
   if (articles.length == req.body.length) return res.send();
+
+  req.body;
 });
