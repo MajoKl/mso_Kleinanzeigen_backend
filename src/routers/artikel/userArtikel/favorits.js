@@ -13,7 +13,7 @@ router.get("me/articles/favorits", async (req, res) => {
 
   try {
     req.user.populate({
-      path: "Favorites",
+      path: "Favorites.",
       options: {
         limit,
         skip,
@@ -25,4 +25,8 @@ router.get("me/articles/favorits", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-router.post("/me/articles/favorites", async (req, res) => {});
+router.post("/me/articles/favorites", async (req, res) => {
+  const articles = await Article.findMany({ _id: { $in: req.body } });
+
+  if (articles.length == req.body.length) return res.send();
+});
