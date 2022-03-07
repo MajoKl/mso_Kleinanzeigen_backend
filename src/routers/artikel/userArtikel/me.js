@@ -44,15 +44,12 @@ router.post("/me/articles", async (req, res) => {
       private: data.Private,
       owner: req.user._id,
     });
-  } catch (error) {
-    res.status(400).send();
-  }
 
-  try {
     await article.save();
     return res.send(article);
   } catch (error) {
-    res.sendStatus(500).send();
+    console.log(error);
+    return res.status(400).send();
   }
 });
 
