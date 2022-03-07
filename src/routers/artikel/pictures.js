@@ -118,13 +118,18 @@ router.delete("/pictures", auth, async (req, res) => {
     const article = await Article.findOne({ _id: article_id });
 
     pictures.forEach((element) => {
+      console.log(
+        fs.existsSync(process.env.ArticlePicturePath, article_id, element)
+      );
       if (fs.existsSync(process.env.ArticlePicturePath, article_id, element)) {
-        fs.rmSync(
-          Path.join(process.env.ArticlePicturePath, article_id, element)
-        );
+        try {
+          fs.rmSync(
+            Path.join(process.env.ArticlePicturePath, article_id, element)
+          );
+        } catch (error) {}
       }
 
-      article.pictures.filter((pic) => pic.name !== element);
+      article.pictures = article.pictures.filter((pic) => pic.name !== element);
     });
 
     await article.save();
