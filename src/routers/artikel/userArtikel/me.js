@@ -49,7 +49,7 @@ router.post("/me/articles", async (req, res) => {
     return res.send(article);
   } catch (error) {
     console.log(error);
-    return res.status(400).send();
+    return res.status(400).send(error.message);
   }
 });
 
