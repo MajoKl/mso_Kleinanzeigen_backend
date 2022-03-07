@@ -37,7 +37,7 @@ const articleSchema = new mongoose.Schema(
     count: {
       type: Number,
       nullable: false,
-      required: true,
+      default: 1,
     },
     ISBN: {
       type: String,

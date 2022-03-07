@@ -10,8 +10,6 @@ const CLIENT_SECRET = process.env.OAuth_CLIENT_SECRET;
 const GITHUB_URL = "https://github.com/login/oauth/access_token";
 
 router.get("/oauth/redirect", async (req, res) => {
-  console.log(req.query);
-  console.log(req.headers["x-forwarded-for"]);
   axios({
     method: "POST",
     url: `${GITHUB_URL}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${req.query.code}`,
