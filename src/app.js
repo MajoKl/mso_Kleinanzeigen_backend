@@ -6,6 +6,7 @@ const Path = require("path");
 const auth = require("./middelware/auth");
 const privacy = require("./middelware/pictures/privacy");
 //router import
+const me = require("./routers/users/me");
 const auto = require("./routers/auth0");
 const basic = require("./routers/artikel/basic");
 const article = require("./routers/artikel/userArtikel/me");
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Todo: gucken für was die scheiße war
 //app.use(privacy);
+app.use("/api", me);
 app.use(auto);
 app.use("/api/", basic);
 app.use("/api/", article);
