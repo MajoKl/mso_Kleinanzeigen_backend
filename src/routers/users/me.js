@@ -6,6 +6,7 @@ const User = require("../../models/User");
 const router = Router();
 
 router.get("/me", auth, async (req, res) => {
+  console.log(req.user + "prrrrrrreeeeeeeeeee");
   try {
     const usrInfo = await User.findOne({ _id: req.user._id }).accessibleBy(
       req.user.abb

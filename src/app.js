@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const app = express();
 const Path = require("path");
 const auth = require("./middelware/auth");
@@ -39,7 +39,7 @@ app.use("/api/", article);
 
 app.use("/api/", auth, privacy, express.static("public"));
 
-app.get("/api/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send({ error: "Hello world!" });
 });
 

@@ -6,7 +6,6 @@ const Article = require("../../../models/Article");
 
 const { errormessages } = require("../../../utils/messages/errors");
 const { response } = require("../../../app");
-router.use(auth);
 
 router.get("/me/articles", async (req, res) => {
   if (req.user.abb.cannot("read", "Article"))
@@ -84,7 +83,7 @@ router.put("/me/articles", async (req, res) => {
   }
 });
 
-router.get("/users/:name", async (req, res) => {
+router.get("/user", async (req, res) => {
   if (req.user.abb.cannot("read", "User", "name"))
     return res.status(401).send();
 
