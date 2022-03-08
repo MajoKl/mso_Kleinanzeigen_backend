@@ -34,5 +34,31 @@ router.put("/me/update", auth, async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+router.post("/me/logout", auth, async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+
+    await req.user.save();
+
+    return res.send();
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
+});
+
+router.post("/me/logoutAll", auth, async (req, res) => {
+  try {
+    req.user.tokens = [];
+
+    await req.user.save();
+
+    res.send();
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
 
 module.exports = router;
