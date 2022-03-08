@@ -85,11 +85,11 @@ router.get("/user", async (req, res) => {
     return res.status(401).send();
 
   try {
-    const user = await User.findOne({ Name: req.query.name });
+    const user = await User.findOne({ name: req.query.name });
 
     if (!user) return res.status(401).send({ errror: "User not found" });
     if (user.private)
-      response.status(404).send({ errror: "The user is private" });
+      return res.status(404).send({ errror: "The user is private" });
     res.status(200).send(user);
   } catch (error) {
     console.error(error);

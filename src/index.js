@@ -23,5 +23,7 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`${PORT}`);
+  console.log(
+    `The server is running on Port: "${PORT}" and is waiting for connections.`
+  );
 });
