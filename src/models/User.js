@@ -28,9 +28,9 @@ const userSchema = new mongoose.Schema(
       default: "user",
       required: true,
     },
-    friends: [mongoose.Schema.Types.ObjectId],
-    blocklist: [mongoose.Schema.Types.ObjectId],
-    favorites: [mongoose.Schema.Types.ObjectId],
+    blocklist: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
     tokens: [
       {
         token: {

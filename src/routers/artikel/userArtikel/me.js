@@ -80,47 +80,4 @@ router.put("/me/articles", async (req, res) => {
   }
 });
 
-router.get("/user", async (req, res) => {
-  if (req.user.abb.cannot("read", "User", "name"))
-    return res.status(401).send();
-
-  try {
-    const user = await User.findOne({ name: req.query.name });
-
-    if (!user) return res.status(401).send({ errror: "User not found" });
-    if (user.private)
-      return res.status(404).send({ errror: "The user is private" });
-    res.status(200).send(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send();
-  }
-});
-
-router.get("/users/articles", async (req, res) => {
-  const name = req.query.name || req.user.name;
-  const categories = req.query.categories.split(",");
-  const matcher = {};
-
-  if (categories.length > 0) matcher["categories"] = { $all: [...categories] };
-
-  if (!req.user.cateories)
-    try {
-      const user = await User.findOne({ name: name }).populate({
-        path: "Articles",
-        options: {
-          skip: req.query.skip,
-          limit: req.query.limit,
-        },
-        match: matcher,
-      });
-
-      if (!user) return res.status(400).send({ error: "user not found" });
-
-      res.send(user.Articles);
-    } catch (err) {
-      res.status(500).send(err.message);
-    }
-});
-
 module.exports = router;
