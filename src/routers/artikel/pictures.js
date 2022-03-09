@@ -22,14 +22,18 @@ const upload = multer({
 });
 
 router.post(
-  "/pictures/upload/",
+  "/pictures/upload",
   auth,
   upload.single("pic"),
   async (req, res) => {
     const file = req.file;
     req.query.name = req.query.name + ".png";
     const { name, article_id } = req.query;
-    console.log(`${name} uploaded to ${article_id}`);
+
+    if (!file)
+      return res
+        .status(400)
+        .send({ error: "Please attach a file to your reqest to use this" });
     try {
       const article = await Article.findOne({
         _id: article_id,
@@ -50,7 +54,6 @@ router.post(
 
       if (
         article.pictures.filter((f) => {
-          console.log(f.name + "         " + name);
           return f.name === name;
         }).length > 0
       )
@@ -85,7 +88,7 @@ router.post(
 );
 
 router.get("/pictures", auth, async (req, res) => {
-  const { ArticleID, Pictures } = req.body;
+  const ArticleID = req.query.article_id;
 
   if (req.user.abb.cannot("read", "Article"))
     res
@@ -104,6 +107,36 @@ router.get("/pictures", auth, async (req, res) => {
     return res.send(pictures);
   } catch (error) {
     console.log(error);
+  }
+});
+
+router.delete("/pictures", auth, async (req, res) => {
+  article_id = req.query.article_id;
+  pictures = req.query.pictures.split(";");
+
+  try {
+    const article = await Article.findOne({ _id: article_id });
+
+    pictures.forEach((element) => {
+      console.log(
+        fs.existsSync(process.env.ArticlePicturePath, article_id, element)
+      );
+      if (fs.existsSync(process.env.ArticlePicturePath, article_id, element)) {
+        try {
+          fs.rmSync(
+            Path.join(process.env.ArticlePicturePath, article_id, element)
+          );
+        } catch (error) {}
+      }
+
+      article.pictures = article.pictures.filter((pic) => pic.name !== element);
+    });
+
+    await article.save();
+    res.send(article.pictures);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
   }
 });
 

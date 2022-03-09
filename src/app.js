@@ -1,14 +1,15 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
+//const cors = require("cors");
 const app = express();
 const Path = require("path");
 const auth = require("./middelware/auth");
 const privacy = require("./middelware/pictures/privacy");
 //router import
+
 const auto = require("./routers/auth0");
-const basic = require("./routers/artikel/basic");
-const article = require("./routers/artikel/userArtikel/me");
+const routs = require("./routers/routs");
+
 const cookieParser = require("cookie-parser");
 
 //important static paths
@@ -31,16 +32,15 @@ app.use(express.urlencoded({ extended: false }));
 
 //Todo: gucken für was die scheiße war
 //app.use(privacy);
-app.use(auto);
-app.use("/api/", basic);
-app.use("/api/", article);
 
+app.use(auto);
+app.use("/api", routs);
 // static routes
 
 app.use("/api/", auth, privacy, express.static("public"));
 
-app.get("/api/", (req, res) => {
-  res.send({ error: "Du bist komisch" });
+app.get("/api", (req, res) => {
+  res.send({ error: "Hello world!" });
 });
 
 module.exports = app;

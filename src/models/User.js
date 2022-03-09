@@ -8,9 +8,11 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      immutable: true,
     },
     sit: {
       type: Number,
+      immutable: true,
     },
     grade: {
       type: String,
@@ -19,14 +21,16 @@ const userSchema = new mongoose.Schema(
         const pattern = /class[0-9]+[a-zA-Z]/i;
         if (!pattern.test(value)) throw new Error("Not a valid grade");
       },
+      immutable: true,
     },
     role: {
       type: String,
       default: "user",
       required: true,
     },
-    friends: [mongoose.Schema.Types.ObjectId],
-    blocklist: [mongoose.Schema.Types.ObjectId],
+    blocklist: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
     tokens: [
       {
         token: {

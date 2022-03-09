@@ -3,7 +3,7 @@ const https = require("https");
 
 const { Server } = require("socket.io");
 
-const PORT = process.env.PORT || 13000;
+const PORT = process.env.PORT || 3000;
 
 //db start
 require("./db/db");
@@ -23,5 +23,7 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log("a");
+  console.log(
+    `The server is running on Port: "${PORT}" and is waiting for connections.`
+  );
 });
