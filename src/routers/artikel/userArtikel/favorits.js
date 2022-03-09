@@ -1,9 +1,7 @@
 const router = require("express").Router();
 const auth = require("../../../middelware/auth");
 
-const User = require("../../../models/User");
 const Article = require("../../../models/Article");
-const { Mongoose } = require("mongoose");
 
 router.get("/me/favorites", async (req, res) => {
   const { limit, skip } = req.query;
