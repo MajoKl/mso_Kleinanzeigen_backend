@@ -63,7 +63,8 @@ const articleSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      nullable: true,
+
+      min: 0,
     },
 
     discription: {

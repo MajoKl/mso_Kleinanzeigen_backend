@@ -6,10 +6,10 @@ const Path = require("path");
 const auth = require("./middelware/auth");
 const privacy = require("./middelware/pictures/privacy");
 //router import
-const me = require("./routers/users/me");
+
 const auto = require("./routers/auth0");
-const basic = require("./routers/artikel/basic");
-const article = require("./routers/artikel/userArtikel/me");
+const routs = require("./routers/routs");
+
 const cookieParser = require("cookie-parser");
 
 //important static paths
@@ -32,11 +32,9 @@ app.use(express.urlencoded({ extended: false }));
 
 //Todo: gucken für was die scheiße war
 //app.use(privacy);
-app.use("/api", me);
-app.use(auto);
-app.use("/api/", basic);
-app.use("/api/", article);
 
+app.use(auto);
+app.use("/api", routs);
 // static routes
 
 app.use("/api/", auth, privacy, express.static("public"));

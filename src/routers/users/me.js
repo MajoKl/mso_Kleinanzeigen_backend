@@ -7,9 +7,7 @@ const router = Router();
 
 router.get("/me", auth, async (req, res) => {
   try {
-    const usrInfo = await User.findOne({ _id: req.user._id }).accessibleBy(
-      req.user.abb
-    );
+    const usrInfo = await User.findOne({ _id: req.user._id });
 
     return res.send(usrInfo);
   } catch (err) {

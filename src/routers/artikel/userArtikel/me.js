@@ -54,17 +54,28 @@ router.post("/me/articles", async (req, res) => {
 });
 
 router.put("/me/articles", async (req, res) => {
-  invalid_update_keys = ["realName", "owner"];
+  invalid_update_keys = ["realName", "owner", "pictures"];
 
-  const data = req.body;
+  const { _id, data } = req.body;
 
-  const invkey = req.body.filter((dat) => invalid_update_keys.includes(dat));
+  if (!_id)
+    return res
+      .status(400)
+      .send({ error: "There must be a roome id provided." });
+
+  const invkey = Object.keys(req.body).filter((dat) =>
+    invalid_update_keys.includes(dat)
+  );
   if (invkey.length > 0)
-    return res.status(400).send({ error: `Following key cant be updated` });
+    return res
+      .status(400)
+      .send({ error: `Following key/s ${invkey}cant be updated` });
+
+  delete req.body.pictures;
 
   try {
     const article = await Article.findOne({
-      _id: req.body._id,
+      _id,
       owner: req.user._id,
     });
 

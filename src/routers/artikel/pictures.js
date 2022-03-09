@@ -33,7 +33,7 @@ router.post(
     if (!file)
       return res
         .status(400)
-        .send({ error: "Please attach a file to your reqest to usere this" });
+        .send({ error: "Please attach a file to your reqest to use this" });
     try {
       const article = await Article.findOne({
         _id: article_id,

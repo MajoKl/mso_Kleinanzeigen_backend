@@ -1,8 +1,6 @@
-const router = require("express").Router();
-const auth = require("../../../middelware/auth");
+const router = new require("express").Router();
 
-const User = require("../../../models/User");
-const Article = require("../../../models/Article");
+const User = require("../../models/User");
 
 router.get("/user", async (req, res) => {
   if (req.user.abb.cannot("read", "User", "name"))
