@@ -91,4 +91,23 @@ router.put("/me/articles", async (req, res) => {
   }
 });
 
+router.delete("/me/articles", async function (req, res) {
+  const articles = req.query.article?.split(",");
+
+  try {
+    const a = await Article.deleteOne({
+      _id: { $in: articles },
+      owner: req.user._id,
+    });
+
+    if (!a)
+      return res
+        .status(400)
+        .send({ error: "Article not found or you do not have permission" });
+
+    res.status(200).send(a);
+  } catch (error) {
+    res.send(error.message);
+  }
+});
 module.exports = router;
