@@ -79,7 +79,7 @@ router.post(
 
       return res.status(200).send();
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   },
   (error, req, res, next) => {

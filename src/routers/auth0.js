@@ -28,7 +28,8 @@ router.get("/oauth/redirect", async (req, res) => {
       .then(async (response) => {
         let user = await User.findOne({
           login:
-            response.data.login || "Permission denied function fuck this user",
+            response.data.login ||
+            "Das ist einfach nur weil ich was komisch finde und so kann sich keiner nenn lololololololololololololololol",
           id: response.data.id,
         });
 

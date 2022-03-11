@@ -22,7 +22,6 @@ router.get("/me/favorites", async (req, res) => {
     console.log(req.user.favorites);
     res.send(req.user.favorites);
   } catch (error) {
-    console.error(error);
     res.status(500).send(error.message);
   }
 });
