@@ -12,18 +12,20 @@ router.get("/users/articles", async (req, res) => {
   if (categories.length > 0) matcher["categories"] = { $all: [...categories] };
 
   try {
-    const user = await User.findOne({ name: name }).populate({
-      path: "Articles",
+    const user = await Article.find({
+      categories: matcher.categories,
       options: {
         skip: req.query.skip,
         limit: req.query.limit,
       },
-      match: matcher,
+    }).populate({
+      path: "owner",
+      name,
     });
 
     if (!user) return res.status(400).send({ error: "user not found" });
 
-    res.send(user.Articles);
+    res.send(user);
   } catch (err) {
     res.status(500).send(err.message);
   }

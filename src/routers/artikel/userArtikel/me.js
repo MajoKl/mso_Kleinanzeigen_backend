@@ -69,7 +69,7 @@ router.put("/me/articles", async (req, res) => {
   if (invkey.length > 0)
     return res
       .status(400)
-      .send({ error: `Following key/s ${invkey}cant be updated` });
+      .send({ error: `Following key/s ${invkey} cant be updated` });
 
   delete req.body.pictures;
 

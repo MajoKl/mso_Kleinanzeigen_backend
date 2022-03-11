@@ -8,6 +8,10 @@ private = async (req, res, next) => {
       .select({ private: 1, pictures: 1, owner: 1 })
       .exec();
 
+    article.populate({ path: "owner" });
+
+    if (article.owner.private) return res.status(400).send();
+
     if (!article.private) return next();
 
     if (req.user._id === article.owner) return next();

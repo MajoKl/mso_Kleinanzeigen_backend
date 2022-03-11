@@ -2,6 +2,8 @@ const User = require("../models/User");
 
 const jwt = require("jsonwebtoken");
 
+//https://www.udemy.com/share/101WGi3@k9oZBiVXc624vm37E6HCDydxQnuEq6GziBVA8otebQ_VUYhKwcJkDAU_OhywcYLFbw==/
+//aber von mir modified, so das alles über cookies läuft
 auth = async (req, res, next) => {
   const token = req.cookies["auth_token"];
   try {

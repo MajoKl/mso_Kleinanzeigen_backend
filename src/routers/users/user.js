@@ -11,7 +11,7 @@ router.get("/user", async (req, res) => {
 
     if (!user) return res.status(401).send({ errror: "User not found" });
     if (user.private)
-      return res.status(404).send({ errror: "The user is private" });
+      return res.status(404).send({ error: "The user is private" });
     res.status(200).send(user);
   } catch (error) {
     console.error(error);
