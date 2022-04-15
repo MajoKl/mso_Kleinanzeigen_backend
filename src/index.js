@@ -1,5 +1,7 @@
 const http = require("http");
-const https = require("https");
+
+
+//const https = require("https");
 
 const { Server } = require("socket.io");
 
@@ -17,9 +19,16 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
+
+
+
   socket.emit("penis");
 
   console.log("new client");
+
+
+
+
 });
 
 server.listen(PORT, () => {
