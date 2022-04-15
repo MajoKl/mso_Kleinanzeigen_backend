@@ -57,7 +57,7 @@ router.get("/oauth/redirect", async (req, res) => {
 
         const token = await user.generateAuthToken();
         res.cookie("auth_token", token);
-        return res.redirect(`http://localhost:3005/`);
+        return res.redirect(`http://dummescheisse.jonaslbgtt.live:3005/`);
       })
       .catch((error) => {
         console.error(error);
