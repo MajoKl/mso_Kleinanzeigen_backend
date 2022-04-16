@@ -30,12 +30,10 @@ router.get("/oauth/redirect", async (req, res) => {
        if(response.data.login == null ) delete response.data.login
        
         let user = await User.findOne({
-          login:
-            response.data.login ||
-            "Das ist einfach nur weil ich was komisch finde und so kann sich keiner nenn lololololololololololololololol",
-          id: response.data.id || 31231255295829,
+          login:response.data.login, 
+          id:response.data.id 
         });
-
+        console.log(user)
         if (!user) {
           try {
             const data = {
