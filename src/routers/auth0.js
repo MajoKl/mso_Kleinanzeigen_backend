@@ -54,8 +54,8 @@ router.get("/oauth/redirect", async (req, res) => {
         if (user.length) user = user[0];
 
         const token = await user.generateAuthToken();
-        res.cookie("auth_token", token);
-        return res.redirect(`http://dummescheisse.jonaslbgtt.live:3005/`);
+        res.cookie("auth_token", token ,{domain: "jonaslbgtt.live"});
+        return res.redirect(process.env.FRONENDURL || "http://127.0.0.1:3000");
       })
       .catch((error) => {
         console.error(error);
