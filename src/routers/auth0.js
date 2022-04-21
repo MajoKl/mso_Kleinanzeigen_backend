@@ -28,12 +28,15 @@ router.get("/oauth/redirect", async (req, res) => {
       .then(async (response) => {
        
        if(response.data.login == null ) delete response.data.login
-       
+       console.log(response.data.login)
+
         let user = await User.findOne({
-          login:response.data.login, 
-          id:response.data.id 
+          name:response.data.login, 
+          sit:response.data.id 
         });
+        
         console.log(user)
+       
         if (!user) {
           try {
             const data = {
@@ -51,11 +54,12 @@ router.get("/oauth/redirect", async (req, res) => {
           }
         }
 
-        if (user.length) user = user[0];
+        // if (user.length) user = user[0];
 
         const token = await user.generateAuthToken();
         res.cookie("auth_token", token ,{domain: "jonaslbgtt.live"});
-        return res.redirect(process.env.FRONENDURL || "http://127.0.0.1:3000");
+        console.log("fuck me in the ass cause i love jesus")
+        return res.redirect(process.env.FRONENDURL);
       })
       .catch((error) => {
         console.error(error);

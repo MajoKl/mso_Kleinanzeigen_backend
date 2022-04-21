@@ -30,12 +30,12 @@ router.get("/me/favorites", async (req, res) => {
 });
 
 router.post("/me/favorites", async (req, res) => {
-  console.log(req.body);
-  req.body = req.body || [];
+  
+  const kek = req.query["favorits"].split(",") || [];
 
-  const articles = await Article.find({ _id: { $in: req.body } });
+  const articles = await Article.find({ _id: { $in: kek } });
 
-  if (articles.length != req.body.length)
+  if (articles.length != kek.length)
     return res.status(400).send({ error: "Not all articles were found" });
 
   const ids = articles.map((article) => article._id);
@@ -45,7 +45,7 @@ router.post("/me/favorites", async (req, res) => {
 
   res.send(req.user.favorites);
 
-  req.body;
+  kek;
 });
 
 router.delete("/me/favorites", auth, async (req, res) => {
