@@ -15,14 +15,6 @@ const articleSchema = new mongoose.Schema(
       default: "",
     },
 
-    realName: {
-      type: String,
-      required: true,
-      description: "Stores the real name of the article wich will be static",
-      immutable: true,
-      unique: true,
-    },
-
     article_type: {
       type: String,
       enum: ["Ich biete", "Ich Suche", "Ich tausche"],
@@ -58,7 +50,7 @@ const articleSchema = new mongoose.Schema(
       type: String,
       enum: ["Festpreis", "Verhandlungsbasis", "Zu Verschenken"],
       description: "Stores the diffent fornegotioations of the articles",
-    },
+    // },
 
     price: {
       type: Number,
@@ -93,6 +85,9 @@ const articleSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+articleSchema.index({name: "text", discription: "text"})
+
 
 const articleModel = new mongoose.model("Article", articleSchema);
 

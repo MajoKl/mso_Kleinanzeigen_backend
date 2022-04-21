@@ -15,9 +15,10 @@ router.get("/users/articles", async (req, res) => {
      owner = await User.findOne({name:req.query.name}).select("_id")
       owner = owner._id
     }
-  if(owner) matcher[owner] = owner
+  if(owner) matcher["owner"] = owner
 
-  
+  if(req.query.search) matcher["$text"] = {$search: req.query.search , $caseSensitive: false}
+  if(req.query.article_id) matcher["_id"] = req.query.article_id
 
     try {
       const articles = await Articles.find(
