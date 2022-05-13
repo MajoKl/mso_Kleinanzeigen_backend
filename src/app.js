@@ -17,7 +17,7 @@ const cookieParser = require("cookie-parser");
 
 const coreopentions = {
 
-  origin: "*",
+  origin: ["http://dev_frontend.jonaslbgtt.live:3005", "http://localhost:3005", "http://localhost"],
   //allowedHeaders:["Authorization","Cookies"]
   credentials:true,
   preflightContinue: false,
