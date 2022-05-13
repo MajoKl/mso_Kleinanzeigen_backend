@@ -35,8 +35,6 @@ router.get("/oauth/redirect", async (req, res) => {
           sit:response.data.id 
         });
         
-        console.log(user)
-       
         if (!user) {
           try {
             const data = {
@@ -57,8 +55,8 @@ router.get("/oauth/redirect", async (req, res) => {
         // if (user.length) user = user[0];
 
         const token = await user.generateAuthToken();
-        res.cookie("auth_token", token ,{domain: "jonaslbgtt.live"});
-        console.log("fuck me in the ass cause i love jesus")
+        res.cookie("auth_token", token ,{domain: process.env.COOKIE_URL});
+       
         return res.redirect(process.env.FRONENDURL);
       })
       .catch((error) => {

@@ -1,11 +1,7 @@
 const router = require("express").Router();
-const auth = require("../../../middelware/auth");
-
-const User = require("../../../models/User");
 const Article = require("../../../models/Article");
 
 const { errormessages } = require("../../../utils/messages/errors");
-const { response } = require("../../../app");
 
 router.get("/me/articles", async (req, res) => {
   if (req.user.abb.cannot("read", "Article"))
@@ -30,23 +26,23 @@ router.get("/me/articles", async (req, res) => {
 });
 
 router.post("/me/articles", async (req, res) => {
-  const data = req.body;
+  const data = req.body ||{};
   let article;
+ 
+delete data.pictures
+delete data._id
+delete data.owner
 
   try {
     article = new Article({
-      Name: data.Name,
-      realName: data.Name,
-      ISBN: data.ISBN,
-      categories: data.Categories,
-      basis_fornegotioations: data.BasisForNegotioations,
-      price: data.Price,
-      private: data.Private,
+      ...data, 
       owner: req.user._id,
     });
-
+    
     await article.save();
+    global.article_count++
     return res.send(article);
+
   } catch (error) {
     console.log(error);
     return res.status(400).send(error.message);
@@ -58,7 +54,7 @@ router.put("/me/articles", async (req, res) => {
 
   const { _id, data } = req.body;
 
-  if (!_id)
+  if (!_id && _id === "")
     return res
       .status(400)
       .send({ error: "There must be a roome id provided." });

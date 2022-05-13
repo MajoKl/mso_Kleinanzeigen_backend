@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./utils/informationgetter/cronjobs")
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -12,7 +13,6 @@ const routs = require("./routers/routs");
 
 const logger = require("./middelware/logger/logging")
 
-
 const cookieParser = require("cookie-parser");
 
 const coreopentions = {
@@ -20,6 +20,7 @@ const coreopentions = {
   origin: "http://dev_frontend.jonaslbgtt.live:3005",
   //allowedHeaders:["Authorization","Cookies"]
   credentials:true,
+  preflightContinue: false,
   
 }
 

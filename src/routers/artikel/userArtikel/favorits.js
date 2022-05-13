@@ -19,7 +19,7 @@ router.get("/me/favorites", async (req, res) => {
       },
       match: matcher,
     });
-    console.log(req.user.favorites);
+    
     res.send(req.user.favorites);
   } catch (error) {
     res.status(500).send(error.message);
@@ -27,22 +27,32 @@ router.get("/me/favorites", async (req, res) => {
 });
 
 router.post("/me/favorites", async (req, res) => {
-  console.log(req.body);
-  req.body = req.body || [];
+  // console.log(req.body);
+  // req.body = req.body || [];
 
-  const articles = await Article.find({ _id: { $in: req.body } });
+  const ids_usr =  req.query.favorites?.split(",") || []
 
-  if (articles.length != req.body.length)
-    return res.status(400).send({ error: "Not all articles were found" });
+  const articles = await Article.find({  $and: [{_id:{ $in: ids_usr} }, { _id:{$nin: req.user.favorites}}]}  );
+
+  if (articles.length != ids_usr.length)
+    return res.status(400).send({ error: "Not all articles were found/ were added before" });
 
   const ids = articles.map((article) => article._id);
 
+ 
+
+try{
+ 
   req.user.favorites = [...req.user.favorites, ...ids];
   await req.user.save();
-
+  
   res.send(req.user.favorites);
+}catch (e) {
 
-  req.body;
+  res.status(500).send(e.message)
+
+}
+ 
 });
 
 router.delete("/me/favorites", auth, async (req, res) => {

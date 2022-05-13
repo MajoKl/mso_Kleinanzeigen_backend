@@ -21,6 +21,7 @@ auth = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).send({ error: "Please sign in again" });
+    
   }
 };
 

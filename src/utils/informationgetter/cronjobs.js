@@ -1,0 +1,1 @@
+require("./article").article_count_routine()

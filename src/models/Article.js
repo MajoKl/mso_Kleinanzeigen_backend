@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const ISBN = require("isbn-validate");
-const dt = require("./subshemas/Details");
+
 
 const articleSchema = new mongoose.Schema(
   {
@@ -50,12 +50,11 @@ const articleSchema = new mongoose.Schema(
       type: String,
       enum: ["Festpreis", "Verhandlungsbasis", "Zu Verschenken"],
       description: "Stores the diffent fornegotioations of the articles",
-    // },
+    },
 
     price: {
       type: Number,
-      required: true,
-
+      default:0,
       min: 0,
     },
 
@@ -66,6 +65,7 @@ const articleSchema = new mongoose.Schema(
 
     private: {
       type: Boolean,
+      default:false,
       discription: "Schows if the article is private or not",
     },
 

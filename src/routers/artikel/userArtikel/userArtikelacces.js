@@ -19,11 +19,12 @@ router.get("/users/articles", async (req, res) => {
 
   if(req.query.search) matcher["$text"] = {$search: req.query.search , $caseSensitive: false}
   if(req.query.article_id) matcher["_id"] = req.query.article_id
-
+  matcher.$or = [{owner : req.user._id},{ private : false}]
     try {
       const articles = await Articles.find(
       matcher,null,
-       {
+       
+      {
         skip: req.query.skip,
         limit: req.query.limit,
 
