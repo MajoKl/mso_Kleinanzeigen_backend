@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("./utils/informationgetter/cronjobs")
+require("./utils/informationgetter/cronjobs");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -11,23 +11,23 @@ const privacy = require("./middelware/pictures/privacy");
 const auto = require("./routers/auth0");
 const routs = require("./routers/routs");
 
-const logger = require("./middelware/logger/logging")
+const logger = require("./middelware/logger/logging");
 
 const cookieParser = require("cookie-parser");
 
 const coreopentions = {
-
-  origin: ["http://dev_frontend.jonaslbgtt.live:3005", "http://localhost:3005", "http://localhost"],
+  origin: [
+    "http://dev_frontend.jonaslbgtt.live:3005",
+    "http://localhost:3005",
+    "http://localhost",
+    "https://mso-kleinanzeigen-frontend.herokuapp.com",
+  ],
   //allowedHeaders:["Authorization","Cookies"]
-  credentials:true,
+  credentials: true,
   preflightContinue: false,
-  
-}
+};
 
-app.use(cors(coreopentions))
-
-
- 
+app.use(cors(coreopentions));
 
 //important static paths
 
@@ -35,9 +35,6 @@ process.env.ArticlePicturePath = Path.join(
   __dirname,
   "../public/ArticlePhotos/"
 );
-
-
-
 
 app.use(express.json());
 app.use(cookieParser());
@@ -50,7 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //Todo: gucken für was die scheiße war
 //app.use(privacy);
-app.use(logger)
+app.use(logger);
 app.use(auto);
 app.use("/api", routs);
 // static routes
