@@ -45,8 +45,7 @@ router.post(
           .status(404)
           .send({ error: "This article does not exist for this user" });
 
-      if (req.user.abb.cannot("update", "Article"))
-        return res.status(404).send();
+
       if (name.length > 24)
         return res.status(400).send({
           Error: `Name ist to long. Please enter a name with less than 20 characters`,
@@ -77,7 +76,7 @@ router.post(
 
       await article.save();
 
-      return res.status(200).send();
+      return res.status(200).send({message: "Save successfully"});
     } catch (e) {
       console.log(e.message);
     }

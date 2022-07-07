@@ -7,6 +7,3 @@ WORKDIR /webdev/msokleinanzeigen/
 RUN npm ci
 
 ENTRYPOINT [ "npm", "run", "start" ]
-
-
-
