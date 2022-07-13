@@ -1,3 +1,6 @@
 const socks = (socket) => {
-  socket.on();
-};
+  
+  socket.on("connect", () => {console.log("Connected to server")}
+  
+  )};
+

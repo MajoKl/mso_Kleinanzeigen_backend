@@ -18,17 +18,8 @@ const server = http.createServer(app);
 
 const io = new Server(server);
 
-io.on("connection", (socket) => {
-
-
-
-  socket.emit("penis");
-
-  console.log("new client");
-
-
-
-
+io.on('connection', (socket) => {
+  console.log('a user connected');
 });
 
 server.listen(PORT, () => {

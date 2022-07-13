@@ -78,6 +78,7 @@ router.post(
 
       return res.status(200).send({message: "Save successfully"});
     } catch (e) {
+      res.status(500).send({ error: e.message });
       console.log(e.message);
     }
   },
