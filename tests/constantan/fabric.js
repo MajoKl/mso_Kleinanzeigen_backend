@@ -22,7 +22,7 @@ const userOne = {
 };
 const userTwoId = new mongoose.Types.ObjectId();
 const userTwo = {
-  _id: new mongoose.Types.ObjectId(),
+  _id: userTwoId,
   name: "UserTwo",
   password: "Fuck this ",
   sit: 12146,
@@ -45,14 +45,14 @@ const articleOne = {
   owner: userOneId,
 };
 
-const articleOne = {
-  Name: "ArticleOne",
-  realName: "ArticleOne",
-  categories: ["Bücher", "Sience", "Hermann", "KaNdrdIAsruNzoh"],
+const articleTwo = {
+  Name: "ArticleTwo",
+  realName: "ArticleTwo",
+  categories: ["Bücher1", "Sience1", "Hermann1", "KaNdrdIAsruNzoh1"],
   basis_fornegotioations: "Festpreis",
   article_type: "Ich Suche",
   price: 4455,
-  private: true,
+  private: false,
   owner: userOneId,
 };
 const setUpDatabase = async () => {
