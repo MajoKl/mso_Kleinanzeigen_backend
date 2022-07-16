@@ -1,6 +1,6 @@
 const Article = require("../../models/Article");
 
-private = async (req, res, next) => {
+privaty = async (req, res, next) => {
   const artid = req.url.split("/")[2];
 
   try {
@@ -22,4 +22,4 @@ private = async (req, res, next) => {
   }
 };
 
-module.exports = private;
+module.exports = privaty;

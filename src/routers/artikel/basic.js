@@ -1,4 +1,4 @@
-const router = new require("express").Router();
+const router = require("express").Router();
 
 const me = require("./userArtikel/me");
 const pictures = require("./pictures");

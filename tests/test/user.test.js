@@ -1,29 +1,42 @@
-const { response } = require('express');
-cosnt app = require('../../src/app');
+const { response } = require("express");
+const app = require("../../src/app");
 
-const request = require('supertest');
-const { 
-userOneId,
-userOne,
-userTwo,
-userTwoId,
-articleOne,
-articleTwo,
-setUpDatabase, } = require('../constantan/fabric');
-
-
+const request = require("supertest");
+const {
+  userOneId,
+  userOne,
+  userTwo,
+  userTwoId,
+  articleOne,
+  articleTwo,
+  setUpDatabase,
+} = require("../constantan/fabric");
+const e = require("express");
 
 describe("User.self functions", () => {
-  
-  
-  
-  
   test("User get own Information", async () => {
+    const response = await request(app)
+      .get("/api/users/me")
+      .set("Cookie", `auth_token=${userOne.tokens[0].token}`)
+      .send()
+      .expect(200);
 
-      const response = await request(app)
+    expect(response.body).toHaveProperty("_id");
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("sit");
+    expect(response.body).toHaveProperty("grade");
+    expect(response.body._id).toEqual(userOneId);
+    expect(response.body.name).toEqual(userOne.name);
+    expect(response.body.sit).toEqual(userOne.sit);
+    expect(response.body.grade).toEqual(userOne.grade);
+  });
 
-
-
+  test("User get own not logt in", async () => {
+    const response = await request(app).get("/api/users/me").send().expect(401);
+    expect(response.body).not.toHaveProperty("_id");
+    expect(response.body).not.toHaveProperty("name");
+    expect(response.body).not.toHaveProperty("sit");
+    expect(response.body).not.toHaveProperty("grade");
   });
   test.todo("User.set specific information");
   test.todo("User.delete self");
@@ -33,7 +46,4 @@ describe("User.self functions", () => {
   test.todo("User.delete article");
   test.todo("User.add friend");
   test.todo("User.remove friend");
-  
 });
-
-

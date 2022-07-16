@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const User = require("../../src/models/user");
+const User = require("../../src/models/User");
 const Article = require("../../src/models/Article");
 const fs = require("fs");
 const path = require("path");
