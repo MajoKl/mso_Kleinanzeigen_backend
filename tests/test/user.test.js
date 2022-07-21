@@ -1,4 +1,3 @@
-const { response } = require("express");
 const app = require("../../src/app");
 
 const request = require("supertest");
@@ -11,15 +10,17 @@ const {
   articleTwo,
   setUpDatabase,
 } = require("../constantan/fabric");
-const e = require("express");
-
 describe("User.self functions", () => {
+  beforeEach(setUpDatabase);
+
   test("User get own Information", async () => {
     const response = await request(app)
-      .get("/api/users/me")
+      .get("/api/me")
       .set("Cookie", `auth_token=${userOne.tokens[0].token}`)
       .send()
       .expect(200);
+
+    console.log(response.body);
 
     expect(response.body).toHaveProperty("_id");
     expect(response.body).toHaveProperty("name");

@@ -4,6 +4,7 @@ const User = require("../../src/models/User");
 const Article = require("../../src/models/Article");
 const fs = require("fs");
 const path = require("path");
+require("../../src/db/db");
 
 //User fixtuers
 

@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 //aber von mir modified, so das alles über cookies läuft
 auth = async (req, res, next) => {
   const token = req.cookies["auth_token"];
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -13,7 +14,7 @@ auth = async (req, res, next) => {
       _id: decoded._id,
       "tokens.token": token,
     });
-
+    console.log(user);
     if (!user) throw new Error("You are unautherized!");
     user.abb = user.generateAbblilities();
 
@@ -21,7 +22,6 @@ auth = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).send({ error: "Please sign in again" });
-    
   }
 };
 
