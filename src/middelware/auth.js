@@ -14,7 +14,7 @@ auth = async (req, res, next) => {
       _id: decoded._id,
       "tokens.token": token,
     });
-    console.log(user);
+
     if (!user) throw new Error("You are unautherized!");
     user.abb = user.generateAbblilities();
 

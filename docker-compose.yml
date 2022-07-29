@@ -19,10 +19,8 @@ services:
     image: mongo:latest
     networks:
       mso_kleinanzeigen:
-        ipv4_address: 10.20.100.20
-    ports:
-      - 27017:27017
-    container_name: mongo
+        ipv4_address: 10.20.100.30
+    container_name: mongo_dev
     restart: unless-stopped
     volumes:
       - ./mongosave:/data/db

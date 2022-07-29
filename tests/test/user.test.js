@@ -20,15 +20,11 @@ describe("User.self functions", () => {
       .send()
       .expect(200);
 
-    console.log(response.body);
-
     expect(response.body).toHaveProperty("_id");
     expect(response.body).toHaveProperty("name");
-    expect(response.body).toHaveProperty("sit");
     expect(response.body).toHaveProperty("grade");
-    expect(response.body._id).toEqual(userOneId);
+    expect(String(response.body._id)).toBe(String(userOne._id));
     expect(response.body.name).toEqual(userOne.name);
-    expect(response.body.sit).toEqual(userOne.sit);
     expect(response.body.grade).toEqual(userOne.grade);
   });
 

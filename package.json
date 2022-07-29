@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon  src/index.js -e js,hbs,css ",
-    "test": "env-cmd -f ./config/test.env jest --watch --forceExit --runInBand"
+    "test": "env-cmd -f ./config/test.env jest --forceExit --runInBand"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,9 @@
     "supertest": "6.2.2"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "mongosave"
+    ]
   }
 }

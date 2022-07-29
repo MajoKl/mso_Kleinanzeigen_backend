@@ -2,15 +2,14 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = require("../../src/models/User");
 const Article = require("../../src/models/Article");
-const fs = require("fs");
-const path = require("path");
+
 require("../../src/db/db");
 
 //User fixtuers
 
 const userOneId = new mongoose.Types.ObjectId();
 const userOne = {
-  _id: new mongoose.Types.ObjectId(),
+  _id: userOneId,
   name: "UserOne",
   password: "Fuck this ",
   sit: 121461,
