@@ -35,12 +35,12 @@ describe("User.self functions", () => {
     expect(response.body).not.toHaveProperty("sit");
     expect(response.body).not.toHaveProperty("grade");
   });
-  test.todo("User.set specific information");
-  test.todo("User.delete self");
-  test.todo("User.login");
+  // test.todo("User.login");
   test.todo("User.logout");
   test.todo("User.create article");
   test.todo("User.delete article");
   test.todo("User.add friend");
   test.todo("User.remove friend");
+  test.todo("User.delete self");
+  test.todo("User.set specific information");
 });
