@@ -16,12 +16,11 @@ auth = async (req, res, next) => {
 
     if (!user) throw new Error("You are unautherized!");
     user.abb = user.generateAbblilities();
-
+    req.token = token;
     req.user = user;
     next();
   } catch (error) {
     return res.status(401).send({ error: "Please sign in again" });
-    
   }
 };
 
