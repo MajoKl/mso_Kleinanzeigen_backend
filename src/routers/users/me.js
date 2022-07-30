@@ -32,6 +32,7 @@ router.put("/me/update", auth, async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
 router.post("/me/logout", auth, async (req, res) => {
   try {
     req.user.tokens = req.user.tokens.filter((token) => {

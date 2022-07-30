@@ -1,5 +1,5 @@
 const app = require("../../src/app");
-
+const User = require("../../src/models/User");
 const request = require("supertest");
 const {
   userOneId,
@@ -36,8 +36,62 @@ describe("User.self functions", () => {
     expect(response.body).not.toHaveProperty("grade");
   });
   // test.todo("User.login");
-  test.todo("User.logout");
-  test.todo("User.create article");
+  test("log out user", async () => {
+    const response = await request(app)
+      .post("/api/me/logout")
+      .set("Cookie", "auth_token=" + userOne.tokens[0].token)
+      .send({})
+      .expect(200);
+
+    expect(response.body.user).toBeUndefined();
+
+    User.findById(userOneId).then((user) => {
+      expect.not.objectContaining({
+        token: expect.any(String(userOne.tokens[0].token)),
+      });
+    });
+  });
+  test("User.create article", async () => {
+    const response = await request(app)
+      .post("/api/me/article")
+      .set("Cookie", `auth_token=${userOne.tokens[0].token}`)
+      .send({
+        Name: "ArticleDro",
+        realName: "ArticleDro",
+        categories: ["Bücher1", "Sience1", "Hermann1", "KaNdrdIAsruNzoh1"],
+        basis_fornegotioations: "Festpreis",
+        article_type: "Ich Suche",
+        price: 4455,
+        private: false,
+      })
+      .expect(200);
+    console.log(response.body);
+    expect(response.body).toHaveProperty("_id");
+    expect(response.body).toHaveProperty("Name");
+    expect(response.body).toHaveProperty("realName");
+    expect(response.body).toHaveProperty("categories");
+    expect(response.body).toHaveProperty("basis_fornegotioations");
+    expect(response.body).toHaveProperty("article_type");
+    expect(response.body).toHaveProperty("price");
+    expect(response.body).toHaveProperty("private");
+    expect(response.body).toHaveProperty("owner");
+    expect(response.body).toHaveProperty("createdAt");
+    expect(response.body).toHaveProperty("updatedAt");
+    expect(response.body).toHaveProperty("__v");
+    expect(response.body.Name).toEqual("ArticleDro");
+    expect(response.body.realName).toEqual("ArticleDro");
+    expect(response.body.categories).toEqual([
+      "Bücher1",
+      "Sience1",
+      "Hermann1",
+      "KaNdrdIAsruNzoh1",
+    ]);
+    expect(response.body.basis_fornegotioations).toEqual("Festpreis");
+    expect(response.body.article_type).toEqual("Ich Suche");
+    expect(response.body.price).toEqual(4455);
+    expect(response.body.private).toEqual(false);
+    expect(response.body.owner).toEqual(userOneId);
+  });
   test.todo("User.delete article");
   test.todo("User.add friend");
   test.todo("User.remove friend");
