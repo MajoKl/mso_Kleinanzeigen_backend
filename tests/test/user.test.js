@@ -95,6 +95,7 @@ describe("User.self functions", () => {
     expect(response.body.private).toEqual(false);
     expect(String(response.body.owner)).toEqual(String(userOneId));
   });
+  test.todo("User.update article");
   test.todo("User.delete article");
   test.todo("User.add friend");
   test.todo("User.remove friend");
