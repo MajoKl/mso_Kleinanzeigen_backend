@@ -26,25 +26,24 @@ router.get("/me/articles", async (req, res) => {
 });
 
 router.post("/me/articles", async (req, res) => {
-  const data = req.body ||{};
+  const data = req.body || {};
   let article;
- 
-delete data.pictures
-delete data._id
-delete data.owner
+
+  delete data.pictures;
+  delete data._id;
+  delete data.owner;
 
   try {
     article = new Article({
-      ...data, 
+      ...data,
       owner: req.user._id,
     });
-    
-    await article.save();
-    global.article_count++
-    return res.send(article);
 
+    article = await article.save();
+    global.article_count++;
+
+    return res.send(article);
   } catch (error) {
-    console.log(error);
     return res.status(400).send(error.message);
   }
 });

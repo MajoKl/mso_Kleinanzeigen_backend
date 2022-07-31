@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const ISBN = require("isbn-validate");
 
-
 const articleSchema = new mongoose.Schema(
   {
     Name: {
@@ -54,7 +53,7 @@ const articleSchema = new mongoose.Schema(
 
     price: {
       type: Number,
-      default:0,
+      default: 0,
       min: 0,
     },
 
@@ -65,7 +64,7 @@ const articleSchema = new mongoose.Schema(
 
     private: {
       type: Boolean,
-      default:false,
+      default: false,
       discription: "Schows if the article is private or not",
     },
 
@@ -86,8 +85,7 @@ const articleSchema = new mongoose.Schema(
   }
 );
 
-articleSchema.index({name: "text", discription: "text"})
-
+articleSchema.index({ name: "text", discription: "text" });
 
 const articleModel = new mongoose.model("Article", articleSchema);
 

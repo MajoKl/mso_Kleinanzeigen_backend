@@ -1,5 +1,6 @@
 const app = require("../../src/app");
 const User = require("../../src/models/User");
+const Article = require("../../src/models/Article");
 const request = require("supertest");
 const {
   userOneId,
@@ -52,23 +53,25 @@ describe("User.self functions", () => {
     });
   });
   test("User.create article", async () => {
+    const article_test = {
+      Name: "ArticleDro",
+      detailtName: "ArticleDro",
+      categories: ["Bücher1", "Sience1", "Hermann1", "KaNdrdIAsruNzoh1"],
+      basis_fornegotioations: "Festpreis",
+      article_type: "Ich Suche",
+      price: 4455,
+      private: false,
+    };
+
     const response = await request(app)
-      .post("/api/me/article")
+      .post("/api/me/articles")
       .set("Cookie", `auth_token=${userOne.tokens[0].token}`)
-      .send({
-        Name: "ArticleDro",
-        realName: "ArticleDro",
-        categories: ["Bücher1", "Sience1", "Hermann1", "KaNdrdIAsruNzoh1"],
-        basis_fornegotioations: "Festpreis",
-        article_type: "Ich Suche",
-        price: 4455,
-        private: false,
-      })
+      .send(article_test)
       .expect(200);
-    console.log(response.body);
+
     expect(response.body).toHaveProperty("_id");
     expect(response.body).toHaveProperty("Name");
-    expect(response.body).toHaveProperty("realName");
+    expect(response.body).toHaveProperty("detailtName");
     expect(response.body).toHaveProperty("categories");
     expect(response.body).toHaveProperty("basis_fornegotioations");
     expect(response.body).toHaveProperty("article_type");
@@ -79,7 +82,7 @@ describe("User.self functions", () => {
     expect(response.body).toHaveProperty("updatedAt");
     expect(response.body).toHaveProperty("__v");
     expect(response.body.Name).toEqual("ArticleDro");
-    expect(response.body.realName).toEqual("ArticleDro");
+    expect(response.body.detailtName).toEqual("ArticleDro");
     expect(response.body.categories).toEqual([
       "Bücher1",
       "Sience1",
@@ -90,7 +93,7 @@ describe("User.self functions", () => {
     expect(response.body.article_type).toEqual("Ich Suche");
     expect(response.body.price).toEqual(4455);
     expect(response.body.private).toEqual(false);
-    expect(response.body.owner).toEqual(userOneId);
+    expect(String(response.body.owner)).toEqual(String(userOneId));
   });
   test.todo("User.delete article");
   test.todo("User.add friend");
