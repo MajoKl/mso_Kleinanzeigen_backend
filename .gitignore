@@ -110,3 +110,5 @@ public/ArticlePhotos/
 ArticlePhotos/
 ArtiklePhotos/
 mongosave/
+.vscode/
+.vs/
