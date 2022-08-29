@@ -31,3 +31,4 @@ networks:
   mso_kleinanzeigen:
     external:
       name: mso_rooms
+      
