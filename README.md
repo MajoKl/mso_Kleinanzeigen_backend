@@ -11,3 +11,34 @@ Soon to be added features will include:
 
 1. chat between users
 2. better search functionality
+
+## Installation
+
+### Manual installation
+
+1. Clone the repository
+2. Install the dependencies with `npm install`
+3. Create a folder called `config` in the root directory.
+4. Create a file called `.env` in the `config` folder.
+5. Add the following lines to the `.env` file:
+
+```text
+OAuth_CLIENT_SECRET=your_client_secret
+OAuth_CLIENT_ID=your_client_id
+PORT=your_port
+MONGODB_URL=mongodb://10.20.100.20:27017/mso-kleinanzeigen-dev(as an example)
+JWT_SECRET=your_jwt_secret
+FRONENDURL=your_frontend_url
+COOKIE_URL=your_cookie_url(without a subdomain)
+```
+
+6. Run the app with `npm start`
+
+### Docker installation
+
+1. Clone the repository
+2. run `docker-compose up --build` in the root directory
+
+## Usage
+
+### API
