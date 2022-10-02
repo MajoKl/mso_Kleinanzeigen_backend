@@ -1,5 +1,5 @@
 const http = require("http");
-
+const sockslogic = require("./socket/chat")
 
 //const https = require("https");
 
@@ -19,7 +19,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  sockslogic.socket(socket, io);
 });
 
 server.listen(PORT, () => {

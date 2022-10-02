@@ -5,7 +5,7 @@ services:
     build: ./
     container_name: mso_kleinanzeigen_api_container
     ports:
-      - 8080:8080
+      - 3000:8080
     restart: unless-stopped
     env_file:
       - ./config/.env
@@ -31,4 +31,3 @@ networks:
   mso_kleinanzeigen:
     external:
       name: mso_rooms
-      
