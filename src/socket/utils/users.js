@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const User = require('../../models/User');
 let users = []
 
 module.exports.verify_user = async (token) => {
@@ -10,7 +10,7 @@ module.exports.verify_user = async (token) => {
     let user = await User.findOne({
         _id: decoded._id,
         "tokens.token": token,
-    }).select("_id username");
+    }).select("_id name");
 
     if (!user) return { error: "You are unautherized!" };
 

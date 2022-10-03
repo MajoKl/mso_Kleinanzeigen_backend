@@ -6,13 +6,18 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon  src/index.js -e js,hbs,css ",
-    "test": "env-cmd -f ./config/dev.env jest"
+    "dev_nginx": "docker start nginx_mso_kleinazeige_dev && npm run dev",
+    "test": "env-cmd -f ./config/dev.env jest",
+    "create_nginx": "docker run --name nginx_mso_kleinazeige_dev -p 3001:80 -v \"$(pwd)/nginx.conf\":/etc/nginx/nginx.conf -d nginx",
+    "build_docker": "sudo docker build -t mso_kleinanzeigen_backend .", 
+    "start_docker": "sudo docker run -p 3000:3000 mso_kleinanzeigen_backend",
+    "docker_compose_start_and_build": "sudo docker-compose up --build --attach api"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MajoKl/mso_Kleinanzeigen_backend.git"
   },
-  "author": "Jonas",
+  "author": "Jonas Liebegott",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MajoKl/mso_Kleinanzeigen_backend/issues"
@@ -24,24 +29,25 @@
     "axios": "0.24.0",
     "bcryptjs": "2.4.3",
     "cookie-parser": "1.4.5",
-    "cors": "^2.8.5",
+    "cors": "2.8.5",
     "dotenv": "10.0.0",
     "env-cmd": "10.1.0",
     "express": "4.17.1",
+    "http-proxy": "1.18.1",
     "install": "0.13.0",
     "isbn-validate": "1.0.3",
     "jsonwebtoken": "8.5.1",
     "mongoose": "6.2.0",
     "multer": "1.4.4",
-    "npm": "^8.14.0",
-    "sharp": "^0.30.7",
+    "npm": "8.14.0",
+    "sharp": "0.30.7",
     "socket.io": "4.4.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.7.0",
     "jest": "27.5.1",
-    "nodemon": "^2.0.19",
+    "nodemon": "2.0.19",
     "superagent": "7.1.1",
     "supertest": "6.2.2"
   },

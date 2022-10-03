@@ -11,3 +11,10 @@ Soon to be added features will include:
 
 1. chat between users
 2. better search functionality
+
+
+
+## Installation
+docker run --name nginx_mso_kleinazeige_dev -p 3001:80 -v "$(pwd)/nginx.conf":/etc/nginx/nginx.conf -d nginx
+
+

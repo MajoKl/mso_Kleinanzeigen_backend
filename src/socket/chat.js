@@ -5,10 +5,10 @@ const { getUser, getUsersInRoom, } = require('./utils/users');
 
 
 const socket = (socket, io) => {
-  socket.on('join', (options, callback) => {
+  socket.on('join', async (options, callback) => {
     console.log('join', options);
 
-    const verify_user = utils.verify_user(options.token);
+    const verify_user = await utils.verify_user(options);
     console.log(verify_user);
     if (verify_user.error) {
       console.table(verify_user.error);
