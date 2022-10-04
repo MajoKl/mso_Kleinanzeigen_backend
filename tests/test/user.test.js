@@ -95,8 +95,20 @@ describe("User.self functions", () => {
     expect(response.body.private).toEqual(false);
     expect(String(response.body.owner)).toEqual(String(userOneId));
   });
-  test.todo("User.update article");
+  
+  
+  test("User.update article" , async () => {
+
+    const response = request(app).put("/api/me/articles/").set("Cookie", `auth_token=${userOne.tokens[0].token}`).send({
+      _id: articleOne._id,
+      Name: "ArticleDro",
+      detailtName: "ArticleDro",
+      
+
+
+  });
   test.todo("User.delete article");
+
   test.todo("User.add friend");
   test.todo("User.remove friend");
   test.todo("User.delete self");
