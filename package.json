@@ -28,7 +28,6 @@
     "dotenv": "10.0.0",
     "env-cmd": "10.1.0",
     "express": "4.17.1",
-    "install": "0.13.0",
     "isbn-validate": "1.0.3",
     "jsonwebtoken": "8.5.1",
     "mongoose": "6.2.0",
