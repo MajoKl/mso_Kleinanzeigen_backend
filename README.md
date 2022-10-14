@@ -40,5 +40,12 @@ COOKIE_URL=your_cookie_url(without a subdomain)
 2. run `docker-compose up --build` in the root directory
 
 ## Usage
-
-### API
+WIP
+### API(REST)
+WIP
+### Backgroud jobs
+WIP
+## Models
+WIP
+## Contributing
+WIP
