@@ -26,15 +26,15 @@ router.get("/oauth/redirect", async (req, res) => {
       },
     })
       .then(async (response) => {
-       
-       if(response.data.login == null ) delete response.data.login
-       console.log(response.data.login)
+
+        if (response.data.login == null) delete response.data.login
+        console.log(response.data.login)
 
         let user = await User.findOne({
-          name:response.data.login, 
-          sit:response.data.id 
+          name: response.data.login,
+          sit: response.data.id
         });
-        
+
         if (!user) {
           try {
             const data = {
@@ -42,10 +42,10 @@ router.get("/oauth/redirect", async (req, res) => {
               sit: response.data.id,
               grade: response.data.grade || "class2002d",
             };
-            const hä = new User({ ...data });
-            await hä.save();
-            console.log(hä);
-            user = hä;
+            user = new User({ ...data });
+            await user.save();
+
+
           } catch (error) {
             console.error(error);
             return res.status(404).send({ error });
@@ -55,8 +55,8 @@ router.get("/oauth/redirect", async (req, res) => {
         // if (user.length) user = user[0];
 
         const token = await user.generateAuthToken();
-        res.cookie("auth_token", token ,{domain: process.env.COOKIE_URL});
-       
+        res.cookie("auth_token", token, { domain: process.env.COOKIE_URL });
+
         return res.redirect(process.env.FRONENDURL);
       })
       .catch((error) => {

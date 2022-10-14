@@ -6,4 +6,5 @@ const generateMessage = (username, text) => {
     }
 }
 
+
 module.exports = { generateMessage }

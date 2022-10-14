@@ -1,14 +1,11 @@
 const http = require("http");
 const sockslogic = require("./socket/chat")
-const httpProxy = require("http-proxy");
-//const https = require("https");
+
 
 const { Server } = require("socket.io");
 
 const PORT = +process.env.PORT || 3000;
-httpProxy.createProxyServer({
-  target: `http://localhost:${PORT}`, ws: true
-}).listen(PORT + 1);
+
 
 //db start
 require("./db/db");
