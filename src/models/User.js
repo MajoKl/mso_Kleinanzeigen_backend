@@ -31,6 +31,8 @@ const userSchema = new mongoose.Schema(
     blocklist: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Article" }],
+    friend_requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    
     tokens: [
       {
         token: {

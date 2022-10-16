@@ -63,4 +63,66 @@ router.delete("/me/favorites", auth, async (req, res) => {
   }
 });
 
+router.get("/me/friends", auth, async (req, res) => {
+try {
+  const user = await User.findById(req.user._id).populate("friends");
+  const friends = user.friends;
+
+  res.send(friends);
+  
+} catch (error) {
+  res.status(500).send(error.message);
+}
+
+});
+
+
+router.post("/me/friend_request", auth, async (req, res) => {
+
+  const friend_id = req.query.friend_id;
+
+  if (!friend_id) return res.status(400).send({ error: "No friend id provided" });
+
+  try {
+
+    const friend = await User.findById(friend_id);
+
+    if (!friend) return res.status(400).send({ error: "No user with such id" });
+
+    if (friend.friends.includes(req.user._id))
+      return res.status(400).send({ error: "You are already friends" });
+
+    if (friend.friend_requests.includes(req.user._id))
+      return res.status(400).send({ error: "You have already sent a friend request" });
+
+    if (req.user.friend_requests.includes(friend_id))
+    {  req.user.friends =  [...req.user.friends, friend_id] 
+      friend.friends = [...friend.friends, req.user._id]
+      res.send("Friend added to your friends list");
+    }
+    
+    friend.friend_requests = [...friend.friend_requests, req.user._id];
+    
+    await req.user.save(); 
+    await friend.save();
+    
+  
+    res.send("Friend request sent");
+  
+  }
+
+
+    catch (error) {
+
+    res.status(500).send(error.message);
+
+  }
+
+
+
+})
+
+
+
+
 module.exports = router;
