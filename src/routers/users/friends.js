@@ -109,6 +109,7 @@ router.post("/me/friend_request", auth, async (req, res) => {
   
     res.send("Friend request sent");
   
+    
   }
 
 
